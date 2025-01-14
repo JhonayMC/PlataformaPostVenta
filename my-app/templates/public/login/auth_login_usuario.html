@@ -7,6 +7,12 @@
     <div class="authentication-inner">
       <div class="card">
         <div class="card-body">
+
+          <div class="text-center mb-4">
+            <h2 class="text-3xl font-semibold text-[#002260] tracking-wide">Atención de quejas y reclamos</h2>
+          </div>
+          
+          
           <!-- Logo -->
           <div class="app-brand justify-content-center">
             <span class="app-brand-logo">
@@ -31,7 +37,7 @@
                   type="text" 
                   class="form-control border-0 flex-1 bg-transparent outline-none h-8"
                   name="user_mym"
-                  placeholder="Usuario"
+                  placeholder="Usuario M&M"
                   autofocus
                   required />
               </div>
@@ -42,14 +48,15 @@
               <div class="input-group input-group-merge flex items-center bg-white p-2 rounded-md border border-gray-200 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-200 transition-all duration-200">
                 <i class="fas fa-lock text-blue-800 mr-2"></i>
                 <input 
+                  id="passwordField"  
                   type="password" 
                   class="form-control border-0 flex-1 bg-transparent outline-none h-8"
                   name="pass_usermym"
                   placeholder="Contraseña"
                   aria-describedby="password"
                   required />
-                <span class="input-group-text cursor-pointer border-0 bg-transparent h-8 flex items-center">
-                  <i class="bx bx-hide text-lg"></i>
+                <span id="togglePassword" class="input-group-text cursor-pointer border-0 bg-transparent h-8 flex items-center"> <!-- Aquí añadimos el id -->
+                  <i class="bx bx-hide text-lg"></i>  <!-- Ícono inicial -->
                 </span>
               </div>
               <div class="text-center mt-2">
@@ -58,6 +65,7 @@
                 </a>
               </div>
             </div>
+
 
             <!-- Campo Compañía -->
             <div class="mb-3">
@@ -71,8 +79,9 @@
                     required
                     style="border: none; flex-grow: 1; padding: 8px 12px; background: transparent; outline: none;">
                     <option value="" disabled selected>---------------- Compañía ----------------</option>
-                    <option value="1">Compañía 1</option>
-                    <option value="2">Compañía 2</option>
+                    <option value="1">30 ANADI</option>
+                    <option value="2">10 M&M REPUESTOS Y SERVICIOS S.A
+                    </option>
                 </select>
                 <span class="input-group-text" style="background: transparent; border: none;">
                     <i class="fas fa-chevron-down" style="color: #696cff;"></i>
@@ -90,20 +99,48 @@
 
           <!-- Enlace crear cuenta -->
           <p class="text-center">
-            <a href="./register-user" class="p-et">
+            <a href="./register-mym" class="p-et">
               <span>Crear mi cuenta</span>
             </a>
+            <div class="text-center">
+              <a href="{{ url_for('inicio') }}" class="d-flex align-items-center justify-content-center login-v" style="color: #707275;">
+                <span class="login-content">
+                  <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
+                  volver
+                </span>
+              </a>
+            </div>
           </p>
+
         </div>
       </div>
     </div>
   </div>
-  <!-- Footer -->
-  <div class="text-center m-2">
-    <p class="mt-8 text-xs" style="color: white;">
+ 
+  <div class="text-center m-5">
+    <p class="mt-8 text-xs" style="color: white; font-size: 2.5vh;">
       © 2025 M&M. Todos los derechos reservados.
     </p>
   </div>
 </div>
+<script>
+  // Obtener el ícono y el campo de contraseña
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordField = document.getElementById('passwordField');
+
+  // Añadir un event listener al ícono para alternar la visibilidad
+  togglePassword.addEventListener('click', function () {
+    // Comprobar el tipo actual del campo de contraseña
+    const type = passwordField.type === 'password' ? 'text' : 'password';
+    passwordField.type = type;
+
+    // Cambiar el ícono según el estado
+    if (type === 'password') {
+      togglePassword.innerHTML = '<i class="bx bx-hide"></i>';  // Ícono de ojo cerrado
+    } else {
+      togglePassword.innerHTML = '<i class="bx bx-show"></i>';  // Ícono de ojo abierto
+    }
+  });
+</script>
 
 {% endblock %}

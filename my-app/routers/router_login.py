@@ -135,7 +135,7 @@ def loginCliente():
             return render_template(f'{PATH_URL_LOGIN}/base_login.html')
 
 # Registro de Usuarios MyM
-#Registrar Usuario MyM
+#Login Usuario MyM
 @app.route('/login-mym', methods=['GET'])
 def cpanelRegisterUserMym():
     if 'conectado' in session:
@@ -144,12 +144,23 @@ def cpanelRegisterUserMym():
         return render_template(f'{PATH_URL_LOGIN}/auth_login_usuario.html')
 
 #Registrar
-#@app.route('/register-mym', methods=['GET'])
-#def cpanelRegisterUserMym():
- #   if 'conectado' in session:
-  #      return redirect(url_for('inicio'))
-   # else:
-    #    return render_template(f'{PATH_URL_LOGIN}/auth_register_usuario.html')
+# Registro de Usuario MyM
+@app.route('/register-mym', methods=['GET', 'POST'])
+def registerUserMym():
+    if 'conectado' in session:
+        return redirect(url_for('inicio')) 
+    else:
+        if request.method == 'POST':
+            nombre_completo = request.form['nombre_completo_mym']
+            user_mym = request.form['user_mym']
+            pass_usermym = request.form['pass_usermym']
+            company = request.form['company']
+            
+            # Aquí puedes agregar la lógica para guardar el usuario en la base de datos
+
+            return redirect(url_for('inicio'))  # O redirigir a otra página si es necesario
+
+        return render_template(f'{PATH_URL_LOGIN}/auth_register_usuario.html')
 
 
 @app.route('/closed-session',  methods=['GET'])

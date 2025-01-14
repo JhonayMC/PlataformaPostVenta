@@ -16,6 +16,7 @@
     y evaluadas por el equipo de Postventa, el cual conduce una investigación para su resolución.</p>
   </div>
 </div>
+
 <div class="container-xxl">
   <div class="authentication-wrapper authentication-basic container-p-y">
     <div class="authentication-inner">
@@ -26,39 +27,45 @@
             class="mb-3"
             action="{{ url_for('loginCliente') }}"
             method="POST">
+            
+            <!-- Campo RUC o DNI -->
             <div class="mb-3">
               <div class="flex items-center bg-white p-2 rounded-md mb-2">
-                  <i class="fas fa-id-card text-blue-800 mr-2"></i>
-                  <input 
-                    type="text" 
-                    placeholder="Ingresar RUC o DNI" 
-                    class="w-full bg-transparent outline-none"
-                    name="email_user"
-                    autofocus
-                    required />
+                <i class="fas fa-id-card text-blue-800 mr-2"></i>
+                <input 
+                  type="text" 
+                  placeholder="Ingresar RUC o DNI" 
+                  class="w-full bg-transparent outline-none"
+                  name="email_user"
+                  autofocus
+                  required />
               </div>
             </div>
+
+            <!-- Campo Contraseña -->
             <div class="mb-3 form-password-toggle">
               <div class="flex items-center bg-white p-2 rounded-md">
                 <i class="fas fa-lock text-blue-800 mr-2"></i>
                 <input 
-                type="password" 
-                placeholder="Contraseña" 
-                class="w-full bg-transparent outline-none"
-                name="pass_user"
-                aria-describedby="password"
-                required />
-                <span class="input-group-text cursor-pointer">
+                  id="passwordField" 
+                  type="password" 
+                  placeholder="Contraseña" 
+                  class="w-full bg-transparent outline-none"
+                  name="pass_user"
+                  aria-describedby="password"
+                  required />
+                <span class="input-group-text cursor-pointer" id="togglePassword"> <!-- Asegúrate de agregar el id -->
                   <i class="bx bx-hide"></i>
                 </span>
               </div>
               <div class="text-center">
-                <a class="login-a " href="{{ url_for('cpanelRecoveryPassUser') }}">
+                <a class="login-a" href="{{ url_for('cpanelRecoveryPassUser') }}">
                   <small>Olvidó su Clave?</small>
-              </a>
+                </a>
               </div>
             </div>
-            
+
+            <!-- Botón de envío -->
             <div class="mb-3">
               <button class="btn btn-primary w-100" type="submit">
                 Ingresar
@@ -76,8 +83,31 @@
       </div>
     </div>
   </div>
-  <div class="text-center m-2">
-    <p style="color:white;">copyright</p>
+
+  <div class="text-center m-5">
+    <p class="mt-8 text-xs" style="color: white; font-size: 2.5vh;">
+      © 2025 M&M. Todos los derechos reservados.
+    </p>
   </div>
-  
 </div>
+
+<!-- Aquí colocas el JavaScript al final, justo antes de la etiqueta </body> -->
+<script>
+  // Obtener el ícono y el campo de contraseña
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordField = document.getElementById('passwordField');
+
+  // Añadir un event listener al ícono para alternar la visibilidad
+  togglePassword.addEventListener('click', function () {
+    // Comprobar el tipo actual del campo de contraseña
+    const type = passwordField.type === 'password' ? 'text' : 'password';
+    passwordField.type = type;
+
+    // Cambiar el ícono según el estado
+    if (type === 'password') {
+      togglePassword.innerHTML = '<i class="bx bx-hide"></i>';  // Ícono de ojo cerrado
+    } else {
+      togglePassword.innerHTML = '<i class="bx bx-show"></i>';  // Ícono de ojo abierto
+    }
+  });
+</script>
