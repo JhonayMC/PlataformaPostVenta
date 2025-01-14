@@ -1,0 +1,121 @@
+{% extends 'public/base_cpanel.html' %}
+<!--Cambiando el title-->
+{% block title %}Crud con Python 🐍 | Registrar Empleado{% endblock %}
+<!---->
+{% block customCSS %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+{% endblock %}
+
+<!--Inicio del block-->
+{% block body %}
+<div class="card" style="border-radius: 0px !important">
+  <div class="row justify-content-center mb-2">
+    <div class="col-md-12">
+      <h3 class="text-center mt-5 mb-3">REGISTRO DE IMPRESION PALLET AMARILLO</h3>
+      <hr />
+    </div>
+  </div>
+
+  <div class="row justify-content-center mb-2">
+    <div class="col-md-10">
+      <form
+        class="form-horizontal mx-auto"
+        method="POST"
+        action="/form-registrar-impresion"
+        autocomplete="off"
+        enctype="multipart/form-data">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="id_impresora" class="form-label">
+                Impresora
+              </label>
+              <select
+              class="form-select"
+              name="id_impresora"
+              aria-label="Default select example">
+              <option selected>Seleccione Impresora</option>
+              <option value="1">IMPORTADO</option>
+              <option value="2">CONSOLIDADO</option>
+              <option value="3">ZEBRA01-91</option>
+              <option value="4">IMP91010</option>
+              <option value="5">IMP9101</option>
+              <option value="6">PRUEBAS DESARROLLO</option>
+              <option value="7">IMP9701</option>
+              <option value="8">PED-DAD</option>
+              <option value="9">MULTINIVEL</option>
+              <option value="10">IMP9105</option>
+              <option value="11">REACH</option>
+              <option value="12">SORTER CONTINAUR</option>
+              <option value="13">LOGISTICA</option>
+              <option value="14">IMP9103</option>
+              <option value="15">LOGISTICA</option>
+            </select>
+            </div>
+            <div class="col-md-6">
+              <label for="id_pallet" class="form-label">
+                Serie de Pallet
+              </label>
+              <select
+                class="form-select"
+                name="id_pallet"
+                aria-label="Default select example">
+                <option selected>Seleccione Pallet</option>
+                <option value="1">3291 CONSOLIDADO IRREGULAR LIBRE</option>
+                <option value="2">3391 LIBRE</option>
+                <option value="3">3491 SORTER</option>
+                <option value="4">3591 PED</option>
+                <option value="5">3691 REACH IRREGULAR</option>
+                <option value="6">3791 DAD</option>
+                <option value="7">3891 CONSOLIDADO REGULAR</option>
+                <option value="8">3991 REACH REGULAR</option>
+                <option value="9">4091 LIBRE</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label for="id_tipo_plantilla" class="form-label">
+                Tipo de Plantilla
+              </label>
+              <select
+                class="form-select"
+                name="id_tipo_plantilla"
+                aria-label="Default select example">
+                <option selected>Seleccione Formato</option>
+                <option value="1">FORMATO 10x10 </option>
+                <option value="2">FORMATO 10x5</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="monto_imprimir" class="form-label">
+                  Monto a imprimir
+              </label>
+              <input
+                  class="form-control"
+                  type="number"  
+                  name="monto_imprimir"
+                  required
+                  max="5000"  
+                  oninput="validarMontoImprimir(this.value)"  
+              />
+              <div id="mensajeMaximo" style="color: red;"></div>  <!-- Mensaje de error personalizado -->
+           </div>
+          </div>
+          <div class="mb-3 mt-4 text-center" id="contenedorBoton">
+            <button type="submit" class="btn rounded-pill btn-primary">
+                IMPRIMIR 
+                <i class="bi bi-printer"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block customJS %}
+<script src="{{ url_for('static', filename ='assets/customJS/file.js') }}"></script>
+{% endblock %}

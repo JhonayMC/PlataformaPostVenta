@@ -1,0 +1,83 @@
+<div class="header-container">
+  <div class="top-left-logo">
+    <img src="{{ url_for('static', filename ='./assets/img/logoMyM.png') }}" alt="Logo" />
+  </div>
+  
+  <div class="top-right-button">
+    <a href="./login-mym" class="btn btn-primary flex items-center justify-center gap-2 py-2 px-4 text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-all duration-200">
+        <i class="fas fa-user"></i>
+        <span>Usuario MyM</span>
+    </a>
+  </div>
+
+  <div class="header-content">
+    <h1>Atención de quejas y reclamos</h1><br>
+    <p>¡Bienvenido! <br>Las quejas y reclamos efectuados mediante esta plataforma son recibidas
+    y evaluadas por el equipo de Postventa, el cual conduce una investigación para su resolución.</p>
+  </div>
+</div>
+<div class="container-xxl">
+  <div class="authentication-wrapper authentication-basic container-p-y">
+    <div class="authentication-inner">
+      <div class="card">
+        <div class="card-body">
+          <form
+            id="formAuthentication"
+            class="mb-3"
+            action="{{ url_for('loginCliente') }}"
+            method="POST">
+            <div class="mb-3">
+              <div class="flex items-center bg-white p-2 rounded-md mb-2">
+                  <i class="fas fa-id-card text-blue-800 mr-2"></i>
+                  <input 
+                    type="text" 
+                    placeholder="Ingresar RUC o DNI" 
+                    class="w-full bg-transparent outline-none"
+                    name="email_user"
+                    autofocus
+                    required />
+              </div>
+            </div>
+            <div class="mb-3 form-password-toggle">
+              <div class="flex items-center bg-white p-2 rounded-md">
+                <i class="fas fa-lock text-blue-800 mr-2"></i>
+                <input 
+                type="password" 
+                placeholder="Contraseña" 
+                class="w-full bg-transparent outline-none"
+                name="pass_user"
+                aria-describedby="password"
+                required />
+                <span class="input-group-text cursor-pointer">
+                  <i class="bx bx-hide"></i>
+                </span>
+              </div>
+              <div class="text-center">
+                <a class="login-a " href="{{ url_for('cpanelRecoveryPassUser') }}">
+                  <small>Olvidó su Clave?</small>
+              </a>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <button class="btn btn-primary w-100" type="submit">
+                Ingresar
+                <i class="bi bi-arrow-right-circle"></i>
+              </button>
+            </div>
+          </form>
+
+          <p class="text-center">
+            <a href="./register-user" class="p-et">
+              <span>Crear mi cuenta</span>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center m-2">
+    <p style="color:white;">copyright</p>
+  </div>
+  
+</div>

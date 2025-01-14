@@ -1,0 +1,45 @@
+{% for impresion in dataBusqueda %}
+<tr id="impresion_{{ impresion.id_impresion }}">
+  <td>{{ loop.index }}</td>
+  <td>{{ impresion.nombre_impresora }}</td>
+  <td>{{ impresion.descripcion }}</td>
+  <td>{{ impresion.formato }}</td>
+  <td>{{ impresion.monto_imprimir }}</td>
+  <td>{{ impresion.nombre_status2 }}</td>
+  <td>
+    <a
+      href="/detalle-impresion/{{ impresion.id_impresion }}"
+      title="Ver envio"
+      type="button"
+      class="btn btn-info btn-sm"
+      data-bs-toggle="tooltip"
+      data-bs-offset="0,4"
+      data-bs-placement="top"
+      data-bs-html="true"
+      title="<span>Ver detalles</span>">
+      <i class="bi bi-eye"></i>
+      Ver detalles
+    </a>
+    <a
+      href="{{ url_for('viewFormImpresion', id = impresion.id_impresion) }}"
+      class="btn btn-success btn-sm"
+      tooltip="Actualizar Registro">
+      <i class="bi bi-arrow-clockwise"></i>
+      Reemprimir
+    </a>
+    <a
+      href="#"
+      onclick="eliminarEmpleado('{{ impresion.id_impresion }}');"
+      class="btn btn-danger btn-sm"
+      data-bs-toggle="tooltip"
+      data-bs-offset="0,4"
+      data-bs-placement="top"
+      data-bs-html="true"
+      title="<span>Eliminar empleado {{ impresion.nombre_empleado }}</span>">
+      <i class="bi bi-trash3"></i>
+      Eliminar Cola
+    </a>
+  </td>
+</tr>
+
+{% endfor %}

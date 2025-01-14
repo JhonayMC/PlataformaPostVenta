@@ -1,0 +1,432 @@
+html, body {  
+  margin: 0;  
+  padding: 0;  
+  min-height: 100vh;  
+  width: 100%;  
+}
+body {  
+  font-family: "Open Sans", sans-serif;  
+  background: linear-gradient(315deg, #002260 20%, #0056b3 50%, #8fcffb 100%);  background-repeat: no-repeat;  
+  background-size: cover;  
+  display: flex;  
+  flex-direction: column;  
+  min-height: 100vh;  
+}
+
+.gj-datepicker-bootstrap [role="right-icon"] button {
+  border: none !important;
+}
+.bi-check-all {
+  font-size: 20px;
+}
+
+/*Inicio del loader */
+#loader-out {
+  background-color: #cecece;
+  opacity: 0.5;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100000000;
+}
+
+#loader-container {
+  width: 150px;
+  height: 150px;
+  color: white;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  border: 5px solid #cecece;
+  border-radius: 50%;
+  -webkit-animation: borderScale 1s infinite ease-in-out;
+  animation: borderScale 1s infinite ease-in-out;
+}
+
+#loading-text {
+  color: #222;
+  font-size: 1.5em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+@-webkit-keyframes borderScale {
+  0% {
+    border: 5px solid white;
+  }
+  50% {
+    border: 25px solid #002260;
+  }
+  100% {
+    border: 5px solid white;
+  }
+}
+
+@keyframes borderScale {
+  0% {
+    border: 5px solid white;
+  }
+  50% {
+    border: 25px solid #002260;
+  }
+  100% {
+    border: 5px solid white;
+  }
+}
+/*Fin del loader*/
+
+.bi-arrow-left-circle:hover {
+  color: #222;
+}
+
+.font_sise_17 {
+  font-size: 17px;
+}
+
+.menu-vertical .app-brand {
+  padding-left: 15px !important;
+}
+
+.btnMovil {
+  display: flex;
+  justify-content: flex-end;
+  text-align: end;
+  background-color: #fff;
+}
+
+.bx-menu {
+  background-color: #0b6000 !important;
+  color: #fff;
+  padding: 10px 10px;
+  border-radius: 50%;
+}
+
+.menu-vertical,
+.menu-vertical .menu-block,
+.menu-vertical .menu-inner > .menu-item,
+.menu-vertical .menu-inner > .menu-header {
+  width: 20.25rem !important;
+}
+
+.noLeido {
+  color: #272e37;
+  font-weight: 600;
+}
+
+tbody tr {
+  border-bottom: 1px solid #eee !important;
+}
+
+tbody tr:hover {
+  cursor: pointer;
+}
+.checkedTodos:hover {
+  cursor: pointer;
+}
+
+.form-check-input[disabled] ~ .form-check-label,
+.form-check-input:disabled ~ .form-check-label {
+  opacity: initial !important;
+}
+
+.borderCheckbox {
+  cursor: pointer;
+  border-color: #08b324;
+  box-shadow: 0 2px 4px 0 rgba(10, 207, 10, 0.4);
+}
+.pagination {
+  justify-content: center;
+}
+
+/*Loader para precarga en botn cargar mas consignaciones*/
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100000000;
+  background-color: #cecece;
+  opacity: 0.5;
+}
+
+.pesos {
+  background-color: #002260;
+  color: #fff;
+  padding: 2px;
+  border-radius: 10%;
+  margin-right: 10px;
+}
+
+.colorTheadTrTh {
+  color: #fff !important;
+}
+
+.input_vacio {
+  border-color: #dc3545 !important;
+}
+.input_lleno {
+  border-color: #198754 !important;
+}
+
+.menu-vertical .menu-inner > .menu-item .menu-link {
+  margin: 0 !important;
+}
+.menu-vertical,
+.menu-vertical .menu-block,
+.menu-vertical .menu-inner > .menu-item,
+.menu-vertical .menu-inner > .menu-header {
+  width: 17.25rem !important;
+}
+
+@media (min-width: 1400px) {
+  .container-xxl,
+  .container-xl,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container {
+    max-width: 95% !important;
+  }
+}
+
+.menu-vertical .menu-item.active:not(.open) > .menu-link {
+  font-size: 14px !important;
+}
+
+.alert-success {
+  background-color: #002260 !important;
+  color: #fff !important;
+}
+
+.mayuscula {
+  text-transform: uppercase !important;
+}
+.btn-primary {
+  background-color: #002260 !important;
+  border: none !important;
+}
+.btn-close {
+  width: auto !important;
+  height: auto !important;
+}
+.bi-x {
+  color: #222 !important;
+}
+
+.form-check-input {
+  width: 1.8em !important;
+  height: 1.9em !important;
+}
+
+.difference {
+  padding: 5px 10px;
+  font-size: 15px;
+  color: #222;
+}
+.bi-star-fill {
+  padding: 0px 10px 0px 0px;
+}
+
+#informe_general:hover {
+  cursor: pointer;
+  border-bottom: dotted 1px #002260;
+}
+
+#search {
+  min-width: 44% !important;
+  background-color: #f3efef !important;
+}
+
+.top-left-logo {
+  position: absolute;
+  top: 2%; /* Ajusta según sea necesario */
+  left: 2%; /* Ajusta según sea necesario */
+  z-index: 10; /* Asegúrate de que quede visible */
+  max-width: 35vh;
+}
+
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Asegura espacio entre el logo y el contenido */
+  padding: 2%; /* Espaciado adaptable */
+  flex-wrap: wrap; /* Permite que se adapte en pantallas pequeñas */
+  position: relative;
+  width: 100%;
+}
+
+/* Estilo para el logo en la esquina izquierda */
+.top-left-logo {
+  flex: 1; /* Toma solo el espacio necesario */
+}
+
+.header-content {
+  flex: 3; /* Ocupa más espacio que el logo */
+  text-align: center;
+}
+
+.header-content h1 {
+  font-size: 2rem; /* Tamaño de fuente adaptable */
+  margin: 0.3em 0; /* Espaciado del título */
+  color: white;
+}
+
+.header-content p {
+  font-size: 1.2rem; /* Tamaño del texto */
+  margin: 1em 0;
+  color: #ffffff; /* Color opcional para el texto */
+  text-align: left; /* Alineación a la izquierda */
+  max-width: 70%; /* Limita el ancho del párrafo */
+  margin-left: auto; /* Centra horizontalmente */
+  margin-right: auto; /* Centra horizontalmente */
+}
+.top-right-button {  
+  position: absolute;  
+  top: 20%;  
+  right: 2%;  
+  z-index: 10;  
+}  
+  
+.top-right-button .btn {  
+  white-space: nowrap;  
+  min-width: 150px;  
+}
+@media (max-width: 768px) {  
+  .top-right-button {  
+    position: relative;  
+    width: 100%;  
+    text-align: center;  
+    margin-top: 60px; /* Espacio después del logo */  
+    right: auto;  
+    top: auto;  
+  }  
+    
+  .header-content {  
+    margin-top: 20px;  
+  }  
+    
+  .header-content p {  
+    max-width: 90%;  
+  }  
+}
+/*Eliminar shadow de los botones*/
+.top-right-button .btn {
+  white-space: nowrap;
+  min-width: 150px;
+  background-color: #38bdf8 !important;
+  border: none !important;
+  box-shadow: none !important; /* Esto eliminará cualquier sombra */
+  transition: all 0.3s ease;
+}
+
+.top-right-button .btn:hover  {
+  background-color: #ffffff !important; /* Un azul ligeramente más claro para el hover */
+  transform: translateY(-2px); /* Efecto sutil al pasar el mouse */
+  color: #38bdf8 !important;
+}
+
+.top-right-button .btn:active,
+.top-right-button .btn:focus {
+  box-shadow: none !important;
+  transform: translateY(0);
+}
+/*Quitar sombreado
+/* Selector específico para el botón de Ingresar dentro del formulario */
+form#formAuthentication .btn-primary,
+.btn-primary {
+  background-color: #002260 !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: all 0.3s ease !important;
+}
+
+form#formAuthentication .btn-primary:hover,
+.btn-primary:hover {
+  background-color: #38bdf8 !important;
+  transform: translateY(-2px);
+  box-shadow: none !important;
+}
+
+form#formAuthentication .btn-primary:focus,
+form#formAuthentication .btn-primary:active,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #002260 !important;
+  box-shadow: none !important;
+  transform: translateY(0);
+}
+/* Ajuste general del contenedor */
+.container-xxl {
+  padding: 0; /* Elimina relleno alrededor del contenedor */
+  margin: 0 auto; /* Centra el contenedor */
+  max-width: 1200px; /* Límite máximo de ancho */
+}
+.card{
+  background-color: #dae0ed;
+  border-radius: 5%;
+}
+.card-body {  
+  padding: 1.5rem; /* Reducido del padding por defecto */  
+}
+
+.login-a{
+  color: white;
+}
+.login-a:hover{
+  color:#002260;
+}
+
+.p-et {
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.p-et:hover {
+  color: #002260 !important; /* El mismo celeste brillante que usamos antes */
+}
+
+/* Efecto de subrayado animado */
+.p-et::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #002260;
+  transition: width 0.3s ease;
+}
+
+.p-et:hover::after {
+  width: 100%;
+}
+.form-label{
+  color: rgb(0, 0, 0);
+}
+/*Logo register*/
+.app-brand-logo {  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+  width: 100%;  
+}  
+
+.app-brand-logo .logo {  
+  width: 30vh; /* Ajusta este valor según necesites */  
+  height: auto;  
+  max-width: 100%;  
+  object-fit: contain;  
+}
+/*Registros de usuarios MyM*/

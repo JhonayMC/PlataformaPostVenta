@@ -1,0 +1,110 @@
+{% extends 'public/base_cpanel.html' %}
+<!--Cambiando el title-->
+{% block title %}Crud con Python 🐍 | Registrar Empleado{% endblock %}
+<!---->
+{% block customCSS %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+{% endblock %}
+
+<!--Inicio del block-->
+{% block body %}
+<!---->
+{% if (detalle_impresion|length) %}
+<div class="card" style="border-radius: 0px !important">
+  <div class="row justify-content-center mb-2">
+    <div class="col-md-12">
+      <h3 class="text-center mt-5 mb-3">
+        <a href="/lista-de-cola-impresiones">
+          <i class="bi bi-arrow-left-circle"></i>
+        </a>
+        INFORMACIÓN DE LA IMPRESION
+      </h3>
+      <hr />
+    </div>
+  </div>
+
+  <div class="row justify-content-center mb-2">
+    <div class="col-md-10">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="id_impresion" class="form-label">
+              ID DE IMPRESION
+            </label>
+            <br />
+            {{ detalle_impresion.id_impresion}}
+          </div>
+          <div class="col-md-6">
+            <label for="descripcion" class="form-label">
+              DESCRIPCION DE PALLET
+            </label>
+            <br />
+            {{ detalle_impresion.descripcion}}
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <label for="monto_imprimir" class="form-label">
+              MONTO DE IMPRESION
+            </label>
+            <br />
+            {{ detalle_impresion.monto_imprimir}}
+          </div>
+          <div class="col-md-6">
+            <label for="nombre_impresora" class="form-label">
+              NOMBRE DE IMPRESORA
+            </label>
+            <br />
+            {{ detalle_impresion.nombre_impresora}}
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <label for="correlativo_inicial" class="form-label">
+              CORRELATIVO INICIAL
+            </label>
+            <br />
+            {{ detalle_impresion.correlativo_inicial}}
+          </div>
+          <div class="col-md-6">
+            <label for="nombre_status2" class="form-label">
+              ESTADO DE IMPRESION
+            </label>
+            <br />
+            {{ detalle_impresion.nombre_status2}}
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <label for="correlativo_final" class="form-label">
+              CORRELATIVO FINAL
+            </label>
+            <br />
+            {{detalle_impresion.correlativo_final}}
+          </div>
+          <div class="col-md-6">
+            <label for="formato" class="form-label"> FORMATO </label>
+            <br />
+            {{detalle_impresion.formato}}
+          </div>
+          <div class="col-md-6">
+            <label for="nombre_status" class="form-label"> ESTADO DE IMPRESORA </label>
+            <br />
+            {{detalle_impresion.nombre_status}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+<h2 class="text-center">
+  No existe el Empleado 😭
+  <hr />
+</h2>
+{% endif %} {% endblock %}
