@@ -20,6 +20,8 @@
 # # Llamada a la función para establecer la conexión
 # mi_cursor_sql_server = connectionBD()
 
+#Conexion original a la base de datos
+
 import pyodbc
 import os
 
@@ -48,10 +50,11 @@ def connectionBD():
 
 
 # Configuración de variables de entorno para pruebas
-os.environ['SQL_SERVER_USER'] = 'saa'
-os.environ['SQL_SERVER_PASSWORD'] = '1234'
-os.environ['SQL_SERVER_HOST'] = 'DESKTOP-18DM3IS\\SQLEXPRESS01'
+os.environ['SQL_SERVER_USER'] = 'sa'
+os.environ['SQL_SERVER_PASSWORD'] = 'mysqlserver10'
+os.environ['SQL_SERVER_HOST'] = 'localhost'
 os.environ['SQL_SERVER_DATABASE'] = 'BOT'
 
 # Llamada a la función para establecer la conexión
 connection = connectionBD()
+

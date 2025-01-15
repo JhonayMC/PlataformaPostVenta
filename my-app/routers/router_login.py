@@ -50,20 +50,22 @@ def cpanelRecoveryPassUser():
 # Crear cuenta de usuario
 @app.route('/saved-register', methods=['POST'])
 def cpanelResgisterUserBD():
-    if request.method == 'POST' and 'name_surname' in request.form and 'pass_user' in request.form:
+    if request.method == 'POST' and 'name_surname' in request.form and 'ruc_user' in request.form and 'pass_user' in request.form:
         name_surname = request.form['name_surname']
-        email_user = request.form['email_user']
+        ruc_user = request.form['ruc_user']
         pass_user = request.form['pass_user']
-
+        
         resultData = recibeInsertRegisterUser(
-            name_surname, email_user, pass_user)
-        if (resultData != 0):
-            flash('la cuenta fue creada correctamente.', 'success')
+            name_surname, ruc_user, pass_user)
+            
+        if resultData:  # Si resultData es verdadero (mayor que 0)
+            flash('La cuenta fue creada correctamente.', 'success')
             return redirect(url_for('inicio'))
         else:
+            flash('Error al crear la cuenta. Por favor, intente nuevamente.', 'error')
             return redirect(url_for('inicio'))
     else:
-        flash('el método HTTP es incorrecto', 'error')
+        flash('Todos los campos son requeridos', 'error')
         return redirect(url_for('inicio'))
 
 
@@ -100,31 +102,28 @@ def loginCliente():
     if 'conectado' in session:
         return redirect(url_for('inicio'))
     else:
-        if request.method == 'POST' and 'email_user' in request.form and 'pass_user' in request.form:
-
-            email_user = str(request.form['email_user'])
+        if request.method == 'POST' and 'ruc_user' in request.form and 'pass_user' in request.form:
+            ruc_user = str(request.form['ruc_user'])
             pass_user = str(request.form['pass_user'])
 
-            # Comprobando si existe una cuenta
             conexion_MySQLdb = connectionBD()
             cursor = conexion_MySQLdb.cursor()
-            cursor.execute("SELECT * FROM users WHERE email_user = ?", (email_user,))
+            # Cambiado email_user por ruc_user en la consulta
+            cursor.execute("SELECT * FROM USERS WHERE ruc_user = ?", (ruc_user,))
             account = cursor.fetchone()
 
             if account:
                 columns = [column[0] for column in cursor.description]
                 account_dict = dict(zip(columns, account))
                 if check_password_hash(account_dict['pass_user'], pass_user):
-                    # Crear datos de sesión, para poder acceder a estos datos en otras rutas
                     session['conectado'] = True
                     session['id'] = account_dict['id']
                     session['name_surname'] = account_dict['name_surname']
-                    session['email_user'] = account_dict['email_user']
+                    session['ruc_user'] = account_dict['ruc_user']  # Guardamos el RUC/DNI
 
                     flash('la sesión fue correcta.', 'success')
                     return redirect(url_for('inicio'))
                 else:
-                    # La cuenta no existe o el nombre de usuario/contraseña es incorrecto
                     flash('datos incorrectos por favor revise.', 'error')
                     return render_template(f'{PATH_URL_LOGIN}/base_login.html')
             else:
@@ -133,7 +132,7 @@ def loginCliente():
         else:
             flash('primero debes iniciar sesión.', 'error')
             return render_template(f'{PATH_URL_LOGIN}/base_login.html')
-
+                                   
 # Registro de Usuarios MyM
 #Login Usuario MyM
 @app.route('/login-mym', methods=['GET'])

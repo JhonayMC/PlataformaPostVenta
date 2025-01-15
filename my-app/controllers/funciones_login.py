@@ -11,8 +11,8 @@ import re
 from werkzeug.security import generate_password_hash
 
 
-def recibeInsertRegisterUser(name_surname, email_user, pass_user):
-    respuestaValidar = validarDataRegisterLogin(name_surname, email_user, pass_user)
+def recibeInsertRegisterUser(name_surname, ruc_user, pass_user):
+    respuestaValidar = validarDataRegisterLogin(name_surname, ruc_user, pass_user)
 
     if respuestaValidar:
         nueva_password = generate_password_hash(pass_user, method='scrypt')
@@ -20,40 +20,40 @@ def recibeInsertRegisterUser(name_surname, email_user, pass_user):
             connection = connectionBD()
             if connection:
                 with connection.cursor() as mycursor:
-                    sql = "INSERT INTO users(name_surname, email_user, pass_user) VALUES (?, ?, ?)"
-                    valores = (name_surname, email_user, nueva_password)
+                    sql = "INSERT INTO USERS(name_surname, ruc_user, pass_user) VALUES (?, ?, ?)"
+                    valores = (name_surname, ruc_user, nueva_password)
                     mycursor.execute(sql, valores)
                     connection.commit()
                     resultado_insert = mycursor.rowcount
                     return resultado_insert
             else:
-                return None
+                return 0
         except Exception as e:
             print(f"Error en el Insert users: {e}")
-            return None
+            return 0
     else:
-        return False
+        return 0
 
-def validarDataRegisterLogin(name_surname, email_user, pass_user):
+def validarDataRegisterLogin(name_surname, ruc_user, pass_user):
     try:
         connection = connectionBD()
         if connection:
             with connection.cursor() as cursor:
-                querySQL = "SELECT * FROM users WHERE email_user = ?"
-                cursor.execute(querySQL, (email_user,))
-                userBD = cursor.fetchone()  # Obtener la primera fila de resultados
+                querySQL = "SELECT * FROM USERS WHERE ruc_user = ?"
+                cursor.execute(querySQL, (ruc_user,))
+                userBD = cursor.fetchone()
 
                 if userBD is not None:
                     flash('El registro no fue procesado, ya existe la cuenta', 'error')
                     return False
-                elif not re.match(r'[^@]+@[^@]+\.[^@]+', email_user):
-                    flash('El correo es inválido', 'error')
+                # Removida la validación de email ya que usamos RUC/DNI
+                elif not ruc_user.isdigit():  # Validación básica para RUC/DNI
+                    flash('El RUC/DNI debe contener solo números', 'error')
                     return False
-                elif not name_surname or not email_user or not pass_user:
+                elif not name_surname or not ruc_user or not pass_user:
                     flash('Por favor llene los campos del formulario.', 'error')
                     return False
                 else:
-                    # La cuenta no existe y los datos del formulario son válidos, puedo realizar el Insert
                     return True
         else:
             return False
@@ -65,13 +65,22 @@ def info_perfil_session():
     try:
         with connectionBD() as conexion_MySQLdb:
             with conexion_MySQLdb.cursor() as cursor:
-                querySQL = "SELECT name_surname, email_user FROM users WHERE id = ?"
+                # Cambiado email_user por ruc_user en el SELECT
+                querySQL = "SELECT name_surname, email_user as ruc_user FROM USERS WHERE id = ?"
                 cursor.execute(querySQL, (session['id'],))
                 info_perfil = cursor.fetchall()
         return info_perfil
     except Exception as e:
         print(f"Error en info_perfil_session : {e}")
         return []
+
+def dataLoginSesion():
+    inforLogin = {
+        "id": session['id'],
+        "name_surname": session['name_surname'],
+        "ruc_user": session['ruc_user']  # Cambiado email_user por ruc_user
+    }
+    return inforLogin
 
 
 # def procesar_update_perfil(data_form):
@@ -202,6 +211,6 @@ def dataLoginSesion():
     inforLogin = {
         "id": session['id'],
         "name_surname": session['name_surname'],
-        "email_user": session['email_user']
+        "ruc_user": session['ruc_user']
     }
     return inforLogin
