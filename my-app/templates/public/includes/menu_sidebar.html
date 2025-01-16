@@ -1,14 +1,76 @@
-<p>porque no funciona?</p>
+<style>
+  .layout-menu {
+    background: linear-gradient(135deg, rgba(240, 248, 255, 0.9), rgba(224, 255, 255, 0.9));
+    backdrop-filter: blur(8px);
+  }
+
+  .menu-item {
+    transition: all 0.3s ease;
+  }
+  .app-brand-logo img {
+    transition: transform 0.5s ease;
+  }
+
+  .app-brand-logo:hover img {
+    transform: scale(1.05);
+  }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      // Animate menu items on load
+      const menuItems = document.querySelectorAll('.menu-item');
+      menuItems.forEach((item, index) => {
+          item.style.opacity = '0';
+          item.style.transform = 'translateX(-20px)';
+          setTimeout(() => {
+              item.style.transition = 'all 0.5s ease';
+              item.style.opacity = '1';
+              item.style.transform = 'translateX(0)';
+          }, 100 * index);
+      });
+  
+      // Logo animation
+      const logo = document.querySelector('.app-brand-logo img');
+      if (logo) {
+          setInterval(() => {
+              logo.style.transform = 'scale(1.1)';
+              setTimeout(() => {
+                  logo.style.transform = 'scale(1)';
+              }, 200);
+          }, 5000);
+      }
+  
+      // Active menu item highlight effect
+      const activeMenuItem = document.querySelector('.menu-item.active');
+      if (activeMenuItem) {
+          activeMenuItem.style.animation = 'pulse 2s infinite';
+      }
+  
+      // Add hover sound effect (optional)
+      menuItems.forEach(item => {
+          item.addEventListener('mouseenter', () => {
+              // You can add a subtle sound effect here if desired
+              item.style.transition = 'all 0.3s ease';
+              item.style.transform = 'translateX(10px)';
+          });
+          
+          item.addEventListener('mouseleave', () => {
+              item.style.transform = 'translateX(0)';
+          });
+      });
+  });
+  </script>
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-  <div class="app-brand demo">
-    <a href="{{ url_for('inicio') }}" class="app-brand-link">
+  <div class="app-brand demo py-4">
+    <a href="{{ url_for('dashboard') }}" class="app-brand-link">
       <span class="app-brand-logo demo">
         <img
           src="{{ url_for('static', filename ='assets/img/logoMyM.png') }}"
-          alt="Logo" />
+          alt="Logo"
+          class="max-w-[35vh] h-auto mx-auto object-contain" />
       </span>
     </a>
-
+   
     <a
       href="javascript:void(0);"
       class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -18,6 +80,28 @@
 
   <div class="menu-inner-shadow"></div>
   <ul class="menu-inner py-5">
+    <li
+      class="menu-item {% if request.path == '/reclamo' %} active {% endif %}">
+      <a href="{{ url_for('reclamo') }}" class="menu-link">
+        <i class="menu-icon bi bi-printer-fill"></i>
+        <div data-i18n="Basic">Reclamo por falla de producto</div>
+      </a>
+    </li>
+    <li
+      class="menu-item {% if request.path == '/otroReclamo' %} active {% endif %}">
+      <a href="{{ url_for('otroReclamo') }}" class="menu-link">
+        <i class="menu-icon bi bi-printer-fill"></i>
+        <div data-i18n="Basic">Otro tipo de reclamo o queja</div>
+      </a>
+    </li>
+    <li
+      class="menu-item {% if request.path == '/consultarEstado' %} active {% endif %}">
+      <a href="{{ url_for('consultarEstado') }}" class="menu-link">
+        <i class="menu-icon bi bi-printer-fill"></i>
+        <div data-i18n="Basic">Consultar estado de reclamo o queja</div>
+      </a>
+    </li>
+    <!--
     <li
       class="menu-item {% if request.path == '/registrar-impresion' %} active {% endif %}">
       <a href="{{ url_for('viewFormImpresion') }}" class="menu-link">
@@ -38,7 +122,7 @@
       <i class="menu-icon bi bi-list-ol"></i>
       <div data-i18n="Tables">Lista de Correlativos</div>
     </a>
-   </li>
+   </li>-->
     <li
       class="menu-item {% if request.path == '/descargar-informe-empleados' %} active {% endif %}">
       <a href="/descargar-informe-empleados" class="menu-link">
@@ -53,14 +137,14 @@
         <div data-i18n="Tables">Lista de Usuarios</div>
       </a>
     </li>
-    
+    <!--
     <li
       class="menu-item {% if request.path == '/mi-perfil' %} active {% endif %}">
       <a href="/mi-perfil" class="menu-link">
         <i class="menu-icon bi bi-person-fill-gear"></i>
         <div data-i18n="Tables">Mi Perfil</div>
       </a>
-    </li>
+    </li> -->
     <li class="menu-item">
       <a href="{{ url_for('cerraSesion') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
@@ -69,4 +153,6 @@
     </li>
   </ul>
 </aside>
-<p>Probando el ingreso a las funcionalidades</p>
+
+
+

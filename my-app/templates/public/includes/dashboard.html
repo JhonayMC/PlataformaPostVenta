@@ -1,0 +1,254 @@
+{% include "public/includes/head.html" %}
+
+<!-- Add required CSS -->
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-animation {
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
+  }
+
+  .card-animation:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .gradient-header {
+    background: linear-gradient(to right, #002260, #6EC1E4);
+    height: 20vh; 
+  }
+
+  .transparent-card {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+
+  .card-title {
+    font-family: 'Poppins', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .hover-effect:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+  }
+  .card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .footer-transparent {
+    background-color: rgba(211, 211, 211, 0.5);
+    backdrop-filter: blur(8px);
+    padding: 1rem;
+  }
+
+</style>
+
+<!-- Navbar -->
+{% include "public/includes/navbar.html" %}
+
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar min-h-screen flex flex-col" 
+     style="background-image: url('{{ url_for('static', filename='assets/img/fondo1.jpg') }}'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;">
+    <div class="layout-container flex-grow">
+        <!-- Menu -->
+        {% include "public/includes/menu_sidebar.html" %}
+        
+        <!-- Layout container -->
+        <div class="layout-page w-full flex flex-col">
+            <!-- Content wrapper -->
+            <div class="content-wrapper flex-grow">
+                <!-- Header actualizado -->
+                <div class="gradient-header w-full flex items-center px-6 py-6">
+                    <!-- Contenedor del texto -->
+                    <div class="flex flex-col items-start">
+                        <h1 class="text-2xl font-bold text-white">Atención de quejas y reclamos</h1>
+                        <p class="text-sm text-gray-200">Siempre listos para ayudarte</p>
+                    </div>
+                    <!-- Logo -->
+                    <div class="flex items-center ml-auto">
+                        <img src="{{ url_for('static', filename='assets/img/logoMyM.png') }}" 
+                             alt="M&M Logo" 
+                             style="width: 25vh; height: 25vh; object-fit: contain;">
+                    </div>
+                </div>
+                <!-- Content -->
+                <div class="container-xxl flex-grow-1 px-6 py-8">
+                    <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                        <!-- Reclamos Card -->
+                        <div class="card-animation hover-effect w-full ">
+                            <div class="transparent-card rounded-xl p-6">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <i class="fas fa-file-alt text-2xl text-blue-400"></i>
+                                    <h2 class="card-title text-2xl font-bold text-white">Conoce más sobre los reclamos</h2>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="text-gray-200">
+                                        <h3 class="font-medium text-xl mb-2" style="color: white;">¿Qué es un reclamo?</h3>
+                                        <p>Manifestación mediante el cual un consumidor expresa una disconformidad relacionada a los bienes o servicios suministrados.</p>
+                                    </div>
+                                    <ul class="space-y-2 text-gray-200">
+                                        <li class="flex items-center gap-2">
+                                            <i class="fas fa-circle text-xs"></i>
+                                            <span>Falla de producto</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Productos, marca, código no solicitados</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Precio, datos del cliente incorrectos</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Empaque, repuesto en mal estado</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Repuesto diferente a la muestra, original, etc</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quejas Card -->
+                        <div class="card-animation hover-effect w-full">
+                            <div class="transparent-card rounded-xl p-6">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <i class="fas fa-comments text-2xl text-blue-400"></i>
+                                    <h2 class="card-title text-2xl font-bold text-white">Conoce más sobre las quejas</h2>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="text-gray-200">
+                                        <h3 class="font-medium text-xl mb-2" style="color: white;">¿Qué es una queja?</h3>
+                                        <p>Manifestación que un consumidor realiza para expresar el malestar o descontento por la atención al público.</p>
+                                    </div>
+                                    <ul class="space-y-2 text-gray-200">
+                                        <li class="flex items-center gap-2">
+                                            <i class="fas fa-circle text-xs"></i>
+                                            <span>Mala atención al cliente</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Personal de M&M (vendedor, cajera, seguridad, etc)</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Tiempos de espera prolongados</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Ambiente</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Demoras en la entrega</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer-transparent text-center text-white text-sm">
+                © 2025 M&M. Todos los derechos reservados.
+            </footer>
+        </div>
+    </div>
+</div>
+
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<!-- Add animation script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Original menu toggle logic
+    const layoutMenuToggle = document.querySelectorAll('.layout-menu-toggle');
+    const layoutWrapper = document.querySelector('.layout-wrapper');
+    const menu = document.querySelector('.layout-menu');
+    
+    function toggleMenu() {
+        if (window.innerWidth < 1200) {
+            menu.style.transition = 'transform 0.3s ease-in-out';
+            layoutWrapper.classList.toggle('layout-menu-expanded');
+            
+            if (layoutWrapper.classList.contains('layout-menu-expanded')) {
+                menu.style.transform = 'translateX(0)';
+            } else {
+                menu.style.transform = 'translateX(-100%)';
+            }
+        }
+    }
+    
+    // Menu toggle event listeners
+    if (layoutMenuToggle) {
+        layoutMenuToggle.forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleMenu();
+            });
+        });
+    }
+    
+    // Click outside menu handler
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth < 1200 && 
+            !menu.contains(e.target) && 
+            !Array.from(layoutMenuToggle).some(toggle => toggle.contains(e.target)) && 
+            layoutWrapper.classList.contains('layout-menu-expanded')) {
+            toggleMenu();
+        }
+    });
+    
+    // Window resize handler
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 1200) {
+            menu.style.transform = '';
+            layoutWrapper.classList.remove('layout-menu-expanded');
+        }
+    });
+
+    // Escape key handler
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && 
+            window.innerWidth < 1200 && 
+            layoutWrapper.classList.contains('layout-menu-expanded')) {
+            toggleMenu();
+        }
+    });
+
+    // Add hover animations for cards
+    const cards = document.querySelectorAll('.transparent-card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+            this.style.boxShadow = '0 12px 40px rgba(0, 0, 0, 0.5)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 8px 32px 0 rgba(31, 38, 135, 0.37)';
+        });
+    });
+});
+</script>
+
+{% include "public/includes/messages.html" %}

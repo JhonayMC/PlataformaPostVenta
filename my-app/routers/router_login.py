@@ -100,7 +100,7 @@ def actualizarPerfil():
 @app.route('/login', methods=['GET', 'POST'])
 def loginCliente():
     if 'conectado' in session:
-        return redirect(url_for('inicio'))
+        return redirect(url_for('dashboard'))
     else:
         if request.method == 'POST' and 'ruc_user' in request.form and 'pass_user' in request.form:
             ruc_user = str(request.form['ruc_user'])
@@ -122,7 +122,7 @@ def loginCliente():
                     session['ruc_user'] = account_dict['ruc_user']  # Guardamos el RUC/DNI
 
                     flash('la sesión fue correcta.', 'success')
-                    return redirect(url_for('inicio'))
+                    return redirect(url_for('dashboard'))
                 else:
                     flash('datos incorrectos por favor revise.', 'error')
                     return render_template(f'{PATH_URL_LOGIN}/base_login.html')
@@ -176,3 +176,14 @@ def cerraSesion():
         else:
             flash('recuerde debe iniciar sesión.', 'error')
             return render_template(f'{PATH_URL_LOGIN}/base_login.html')
+
+#Redirigir al dashborad de mi pagina, mi menu principal
+@app.route('/dashboard')
+def dashboard():
+    if 'conectado' in session:  # Verificar si el usuario está logueado
+        # Si está logueado, mostrar la página del dashboard
+        return render_template('public/includes/dashboard.html')
+    else:
+        # Si no está logueado, redirigir al login
+        flash('Debes iniciar sesión para acceder al dashboard', 'error')
+        return redirect(url_for('loginCliente')) 

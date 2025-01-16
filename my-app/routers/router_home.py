@@ -150,3 +150,30 @@ def detener_impresion2(id_impresion):
         return redirect(url_for('lista_impresiones'))
 # Llamada a la función para parar la impresión de un hilo específico
 
+#Para que me redirijia a reclamo.html
+@app.route('/reclamo', methods=['GET'])
+def reclamo():
+    if 'conectado' in session:
+        return render_template('public/reclamos/reclamo.html')
+    else:
+        flash('primero debes iniciar sesión.', 'error')
+        return redirect(url_for('inicio'))
+
+#Para que me redirijia a otroReclamoQueja.html
+@app.route('/otroReclamo', methods=['GET'])
+def otroReclamo():
+    if 'conectado' in session:
+        return render_template('public/reclamos/otroReclamoQueja.html')
+    else:
+        flash('primero debes iniciar sesión.', 'error')
+        return redirect(url_for('inicio'))
+
+    
+#Para que me redirijia a consultarEstado.html
+@app.route('/consultarEstado', methods=['GET'])
+def consultarEstado():
+    if 'conectado' in session:
+        return render_template('public/reclamos/consultarEstado.html')
+    else:
+        flash('primero debes iniciar sesión.', 'error')
+        return redirect(url_for('inicio'))

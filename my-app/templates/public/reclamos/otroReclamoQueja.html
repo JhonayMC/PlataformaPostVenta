@@ -1,0 +1,118 @@
+{% extends 'public/base_cpanel.html' %}
+<!--Cambiando el title-->
+{% block title %}Crud con Python 🐍 | Registrar Empleado{% endblock %}
+<!---->
+{% block customCSS %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+{% endblock %}
+
+<!--Inicio del block-->
+{% block body %}
+<div class="max-w-5xl mx-auto p-4">
+    <div class="bg-blue-900 text-white p-4 rounded-t-lg">
+        <h1 class="text-xl font-bold" style="color: white;">Registrar otro tipo de reclamo o queja</h1>
+    </div>
+    <div class="bg-white p-4 rounded-b-lg shadow-lg">
+        <h2 class="text-blue-900 font-semibold mb-2">Seleccionar motivo por producto:</h2>
+        <div class="bg-gray-200 p-4 rounded-lg mb-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Datos mal consignados (razón social, RUC, destino)
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Doble facturación
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Precio
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Cantidad
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Producto no solicitado
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Marca errada
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Código errado
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Empaque / repuesto en mal estado
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Mercadería sin empaque de marca
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Repuesto incompleto
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Repuesto diferente a la muestra / original
+                </label>
+            </div>
+            <!-- Botón Elegir en la parte inferior derecha -->
+            <div class="mt-4 text-right">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg">Elegir</button>
+            </div>
+        </div>
+
+        <h2 class="text-blue-900 font-semibold mb-2">Seleccionar motivo por servicio:</h2>
+        <div class="bg-gray-200 p-4 rounded-lg">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_servicio" class="mr-2">
+                    Mala atención al cliente
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_servicio" class="mr-2">
+                    Personal de M&M
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_servicio" class="mr-2">
+                    Demora en la atención
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_servicio" class="mr-2">
+                    Ambiente
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_servicio" class="mr-2">
+                    Demora en la entrega de productos
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_servicio" class="mr-2">
+                    Desabasto
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_servicio" class="mr-2">
+                    Falta de información
+                </label>
+            </div>
+            <!-- Botón Elegir en la parte inferior derecha -->
+            <div class="mt-4 text-right">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg">Elegir</button>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="text-center text-white text-sm py-4">
+    © 2025 M&M. Todos los derechos reservados.
+</footer>
+{% endblock %} 
+
+{% block customJS %}
+<script src="{{ url_for('static', filename ='assets/customJS/file.js') }}"></script>
+{% endblock %}

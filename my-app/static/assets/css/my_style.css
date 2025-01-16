@@ -103,7 +103,7 @@ body {
 }
 
 .bx-menu {
-  background-color: #0b6000 !important;
+  background-color: #002260 !important;
   color: #fff;
   padding: 10px 10px;
   border-radius: 50%;
@@ -139,8 +139,8 @@ tbody tr:hover {
 
 .borderCheckbox {
   cursor: pointer;
-  border-color: #08b324;
-  box-shadow: 0 2px 4px 0 rgba(10, 207, 10, 0.4);
+  border-color: #002260;
+  box-shadow: 0 2px 4px 0 rgba(76, 236, 248, 0.4);
 }
 .pagination {
   justify-content: center;
@@ -174,7 +174,7 @@ tbody tr:hover {
   border-color: #dc3545 !important;
 }
 .input_lleno {
-  border-color: #198754 !important;
+  border-color: #38bdf8   !important;
 }
 
 .menu-vertical .menu-inner > .menu-item .menu-link {
@@ -493,4 +493,29 @@ form#formAuthentication .btn-primary:active,
 /*Botones de ocultar contraseña*/
 .bx-hide:hover{
   color: #002260;
+}
+
+
+/*Menú de inicio*/
+/* Estilo para el enlace después de haber sido visitado */
+.menu-item a:visited {
+  color: #002260; /* Color oscuro */
+  text-decoration: none; /* Quitar subrayado */
+}
+
+/* Estilo para el enlace cuando se pasa el cursor por encima (hover) */
+.menu-item a:hover {
+  color: white !important; /* Color oscuro */
+  background-color: #38bdf8; /* Fondo azul claro */
+  text-decoration: none; /* Subrayar cuando se pasa el cursor */
+}
+
+.menu-item a:active {
+  color: #002260 !important; /* Color cuando el enlace es clickeado */
+  text-decoration: none !important;
+}
+
+.menu-item a:focus {
+  color: white !important; /* Color oscuro */
+  background-color: #38bdf8; /* Eliminar el borde de foco por defecto si no se desea */
 }
