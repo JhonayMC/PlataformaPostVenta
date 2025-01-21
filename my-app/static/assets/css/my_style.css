@@ -6,7 +6,7 @@ html, body {
 }
 body {  
   font-family: "Open Sans", sans-serif;  
-  background: linear-gradient(315deg, #002260 20%, #0056b3 50%, #8fcffb 100%);  background-repeat: no-repeat;  
+ /* background: linear-gradient(315deg, #002260 20%, #0056b3 50%, #8fcffb 100%);  background-repeat: no-repeat;  */
   background-size: cover;  
   display: flex;  
   flex-direction: column;  
@@ -499,23 +499,23 @@ form#formAuthentication .btn-primary:active,
 /*Menú de inicio*/
 /* Estilo para el enlace después de haber sido visitado */
 .menu-item a:visited {
-  color: #002260; /* Color oscuro */
+  color: #ffffff; /* Color oscuro */
   text-decoration: none; /* Quitar subrayado */
 }
 
 /* Estilo para el enlace cuando se pasa el cursor por encima (hover) */
 .menu-item a:hover {
-  color: white !important; /* Color oscuro */
-  background-color: #38bdf8; /* Fondo azul claro */
+  color: rgb(0, 0, 0) !important; /* Color oscuro */
+  background-color: #ffffff; /* Fondo azul claro */
   text-decoration: none; /* Subrayar cuando se pasa el cursor */
 }
 
 .menu-item a:active {
-  color: #002260 !important; /* Color cuando el enlace es clickeado */
+  color: #ffffff !important; /* Color cuando el enlace es clickeado */
   text-decoration: none !important;
 }
 
 .menu-item a:focus {
   color: white !important; /* Color oscuro */
-  background-color: #38bdf8; /* Eliminar el borde de foco por defecto si no se desea */
+  background-color: #000000; /* Eliminar el borde de foco por defecto si no se desea */
 }

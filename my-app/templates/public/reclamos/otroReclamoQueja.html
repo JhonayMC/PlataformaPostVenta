@@ -6,17 +6,30 @@
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename ='assets/css/file.css') }}" />
-{% endblock %}
+  <link rel="stylesheet" href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  {% endblock %}
+
 
 <!--Inicio del block-->
 {% block body %}
-<div class="max-w-5xl mx-auto p-4">
-    <div class="bg-blue-900 text-white p-4 rounded-t-lg">
-        <h1 class="text-xl font-bold" style="color: white;">Registrar otro tipo de reclamo o queja</h1>
+<div class="w-full min-h-screen bg-gray-50 px-3 ">
+
+    <div class="bg-blue-900 text-white p-4 rounded-t-lg flex items-center justify-between">
+        <div class="flex items-center">
+            <a href="./dashboard" class="mr-4 hover:text-gray-300">
+                <i class="fas fa-arrow-left text-2xl"></i>
+            </a>
+            <h1 class="text-xl font-bold" style="color: white;">Registrar otro tipo de reclamo o queja</h1>
+        </div>
+        <img src="{{ url_for('static', filename='assets/img/mymblack.png') }}" 
+                     alt="Logo M&M" 
+                     class="h-8 md:h-10" />
     </div>
+
     <div class="bg-white p-4 rounded-b-lg shadow-lg">
         <h2 class="text-blue-900 font-semibold mb-2">Seleccionar motivo por producto:</h2>
-        <div class="bg-gray-200 p-4 rounded-lg mb-4">
+        <div class="bg-blue-50 p-4 rounded-lg mb-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                 <label class="flex items-center">
                     <input type="radio" name="motivo_producto" class="mr-2">
@@ -65,12 +78,15 @@
             </div>
             <!-- Botón Elegir en la parte inferior derecha -->
             <div class="mt-4 text-right">
-                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg">Elegir</button>
+                <a href="{{ url_for('otroReclamoG1')}}" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
+                    Elegir
+                </a>
+                <!--<button class="bg-blue-500 text-white px-4 py-2 rounded-lg">Elegir</button>-->
             </div>
         </div>
 
         <h2 class="text-blue-900 font-semibold mb-2">Seleccionar motivo por servicio:</h2>
-        <div class="bg-gray-200 p-4 rounded-lg">
+        <div class="bg-blue-50 p-4 rounded-lg">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                 <label class="flex items-center">
                     <input type="radio" name="motivo_servicio" class="mr-2">
@@ -103,14 +119,18 @@
             </div>
             <!-- Botón Elegir en la parte inferior derecha -->
             <div class="mt-4 text-right">
-                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg">Elegir</button>
+                <a href="{{ url_for('otroReclamoG2')}}" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
+                    Elegir
+                </a>
+                <!--<button class="bg-blue-500 text-white px-4 py-2 rounded-lg">Elegir</button>-->
             </div>
         </div>
     </div>
+    <footer class="text-center py-3" style="color: #002260; font-size: 1.1rem;">
+        © 2025 M&M. Todos los derechos reservados.
+    </footer>
 </div>
-<footer class="text-center text-white text-sm py-4">
-    © 2025 M&M. Todos los derechos reservados.
-</footer>
+
 {% endblock %} 
 
 {% block customJS %}

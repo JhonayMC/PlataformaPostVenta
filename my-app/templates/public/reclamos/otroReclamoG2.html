@@ -1,0 +1,116 @@
+{% extends 'public/base_cpanel.html' %}
+<!--Cambiando el title-->
+{% block title %}Crud con Python 🐍 | Registrar Empleado{% endblock %}
+<!---->
+{% block customCSS %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  {% endblock %}
+
+<!--Inicio del block-->
+{% block body %}
+<div class="w-full min-h-screen bg-gray-50 px-3">
+    <div class="bg-blue-900 text-white p-4 rounded-t-lg flex items-center justify-between">
+        <div class="flex items-center">
+            <a href="./dashboard" class="mr-4 hover:text-gray-300">
+                <i class="fas fa-arrow-left text-2xl"></i>
+            </a>
+            <h1 class="ml-2 text-xl font-bold" style="color: white;">Registrar otro tipo de reclamo o queja</h1>
+        </div>
+        <img src="{{ url_for('static', filename='assets/img/mymblack.png') }}" 
+                     alt="Logo M&M" 
+                     class="h-8 md:h-10" />
+    </div>
+        <div class="bg-white p-4 rounded-b-lg shadow-lg">
+            <div class="bg-blue-50 mb-4 p-4 rounded-lg">
+                <h2 class="text-gray-700 font-semibold">Seleccionar motivo por servicio:</h2>
+                <div class="flex flex-wrap mt-2">
+                    <label class="mr-4 mb-2 flex items-center">
+                        <input type="radio" name="motivo" class="mr-2">
+                        Mala atención al cliente
+                    </label>
+                    <label class="mr-4 mb-2 flex items-center">
+                        <input type="radio" name="motivo" class="mr-2" checked>
+                        Personal de M&M
+                    </label>
+                    <label class="mr-4 mb-2 flex items-center">
+                        <input type="radio" name="motivo" class="mr-2">
+                        Demora en la atención
+                    </label>
+                    <label class="mr-4 mb-2 flex items-center">
+                        <input type="radio" name="motivo" class="mr-2">
+                        Ambiente
+                    </label>
+                    <label class="mr-4 mb-2 flex items-center">
+                        <input type="radio" name="motivo" class="mr-2">
+                        Demora en la entrega de productos
+                    </label>
+                    <label class="mr-4 mb-2 flex items-center">
+                        <input type="radio" name="motivo" class="mr-2">
+                        Desabasto
+                    </label>
+                    <label class="mr-4 mb-2 flex items-center">
+                        <input type="radio" name="motivo" class="mr-2">
+                        Falta de información
+                    </label>
+                </div>
+            </div>
+            <div class="bg-blue-50 mb-4 p-4 rounded-lg">
+                <label class="block text-gray-700 font-semibold mb-2">Especificar fecha de queja:</label>
+                <input type="date" class="w-full p-2 border border-gray-300 rounded-md">
+            </div>
+            <div class="bg-blue-50 mb-4 p-4 rounded-lg">
+                <label class="block text-gray-700 font-semibold mb-2">Describir queja: <span class="text-red-500">*</span></label>
+                <textarea class="w-full p-2 border border-gray-300 rounded-md" rows="4" placeholder="Escribir detalle"></textarea>
+            </div>
+            <div class="bg-blue-50 mb-4 p-4 rounded-lg">
+                <label class="block text-gray-700 font-semibold mb-2">Adjuntar archivos (JPG, PNG, MP4 5mb Max.)</label>
+                <input type="file" class="w-full p-2 border border-gray-300 rounded-md">
+            </div>
+            <div class="bg-blue-50 mb-4 p-4 rounded-lg">
+                <h2 class="text-gray-700 font-semibold">Datos del solicitante y persona que registra la queja:</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Cliente</label>
+                        <input type="text" class="w-full p-2 border border-gray-300 rounded-md" disabled>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">DNI <span class="text-red-500">*</span></label>
+                        <div class="flex">
+                            <input type="text" class="w-full p-2 border border-gray-300 rounded-l-md">
+                            <button class="bg-blue-900 text-white px-4 rounded-r-md">Buscar</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Nombres</label>
+                        <input type="text" class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Apellidos</label>
+                        <input type="text" class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">E-mail <span class="text-red-500">*</span></label>
+                        <input type="email" class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Teléfono <span class="text-red-500">*</span></label>
+                        <input type="tel" class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end mt-4">
+                <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md mr-2">Cancelar</button>
+                <button class="bg-blue-900 text-white px-4 py-2 rounded-md">Guardar</button>
+            </div>
+        </div>
+        <footer class="text-center py-3" style="color: #002260; font-size: 1.1rem;">
+            © 2025 M&M. Todos los derechos reservados.
+        </footer>
+    </div>
+{% endblock %} {% block customJS %}
+<script src="{{ url_for('static', filename ='assets/customJS/file.js') }}"></script>
+{% endblock %}

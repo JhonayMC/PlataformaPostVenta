@@ -1,7 +1,7 @@
 <style>
   .layout-menu {
-    background: linear-gradient(135deg, rgba(240, 248, 255, 0.9), rgba(224, 255, 255, 0.9));
-    backdrop-filter: blur(8px);
+      background: linear-gradient(to right, #000000, #1A1A1A, #333333, #4F4F4F) !important;
+      backdrop-filter: blur(8px);
   }
 
   .menu-item {
@@ -14,6 +14,25 @@
   .app-brand-logo:hover img {
     transform: scale(1.05);
   }
+  .app-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+
+  .app-brand-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Asegura que el contenedor del logo ocupe todo el ancho */
+  }
+
+  .app-brand-logo img {
+    max-width: 80%; /* Ajusta el tamaño del logo según sea necesario */
+    height: auto;
+}
+
+
 </style>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -62,13 +81,12 @@
   </script>
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
   <div class="app-brand demo py-4">
-    <a href="{{ url_for('dashboard') }}" class="app-brand-link">
-      <span class="app-brand-logo demo">
-        <img
-          src="{{ url_for('static', filename ='assets/img/logoMyM.png') }}"
-          alt="Logo"
-          class="max-w-[35vh] h-auto mx-auto object-contain" />
-      </span>
+    <a href="{{ url_for('dashboard') }}" 
+    class="app-brand-link d-flex justify-content-center"> 
+      <span class="app-brand-logo demo"> 
+        <img src="{{ url_for('static', filename ='assets/img/mymblack.png') }}" alt="Logo" 
+        class="max-w-[30vh] h-auto mx-auto object-contain" /> 
+      </span> 
     </a>
    
     <a
@@ -83,14 +101,14 @@
     <li
       class="menu-item {% if request.path == '/reclamo' %} active {% endif %}">
       <a href="{{ url_for('reclamo') }}" class="menu-link">
-        <i class="menu-icon bi bi-printer-fill"></i>
-        <div data-i18n="Basic">Reclamo por falla de producto</div>
-      </a>
+          <i class="menu-icon bi bi-tools"></i>
+          <div data-i18n="Basic">Reclamo por falla de producto</div>
+        </a>
     </li>
     <li
       class="menu-item {% if request.path == '/otroReclamo' %} active {% endif %}">
       <a href="{{ url_for('otroReclamo') }}" class="menu-link">
-        <i class="menu-icon bi bi-printer-fill"></i>
+        <i class="menu-icon bi bi-chat-dots"></i>
         <div data-i18n="Basic">Otro tipo de reclamo o queja</div>
       </a>
     </li>

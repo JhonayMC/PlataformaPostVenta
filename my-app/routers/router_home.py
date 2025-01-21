@@ -177,3 +177,21 @@ def consultarEstado():
     else:
         flash('primero debes iniciar sesión.', 'error')
         return redirect(url_for('inicio'))
+
+#Para que me redirija a otroReclamoG1.html
+@app.route('/otroReclamoG1', methods=['GET'])
+def otroReclamoG1():
+    if 'conectado' in session:
+        return render_template('public/reclamos/otroReclamoG1.html')
+    else:
+        flash('primero debes iniciar sesión.', 'error')
+        return redirect(url_for('inicio'))
+
+#Para que me redirija a otroReclamoG2.html
+@app.route('/otroReclamoG2', methods=['GET'])
+def otroReclamoG2():
+    if 'conectado' in session:
+        return render_template('public/reclamos/otroReclamoG2.html')
+    else:
+        flash('primero debes iniciar sesión.', 'error')
+        return redirect(url_for('inicio'))

@@ -1,0 +1,234 @@
+{% extends 'public/base_cpanel.html' %}
+
+{% block title %}Crud con Python 🐍 | Registrar otro tipo de reclamo{% endblock %}
+
+{% block customCSS %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
+{% endblock %}
+
+{% block body %}
+<div class="w-full min-h-screen bg-gray-50 px-3">
+    <div class="bg-blue-900 text-white p-4 rounded-t-lg flex items-center justify-between">
+        <div class="flex items-center">
+            <a href="./dashboard" class="mr-4 hover:text-gray-300">
+                <i class="fas fa-arrow-left text-2xl"></i>
+            </a>
+            <h1 class="ml-2 text-xl font-bold" style="color: white;">Registrar otro tipo de reclamo o queja</h1>
+        </div>
+        <img src="{{ url_for('static', filename='assets/img/mymblack.png') }}" 
+                     alt="Logo M&M" 
+                     class="h-8 md:h-10" />
+    </div>
+    <div class="bg-white p-4 rounded-b-lg shadow-lg">
+        <div class="bg-blue-50 mb-4 p-4 rounded-lg">
+            <h2 class="text-lg font-semibold mb-2">Seleccionar motivo por producto:</h2>
+            <div class="grid grid-cols-2 gap-2">
+                <label class="flex items-center">
+                    <input type="radio" name="motivo" class="mr-2">
+                    Datos mal consignados (razón social, RUC, destino)
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo" class="mr-2">
+                    Doble facturación
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo" class="mr-2">
+                    Precio
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo" class="mr-2" checked>
+                    Cantidad
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo" class="mr-2">
+                    Producto no solicitado
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo" class="mr-2">
+                    Marca errada
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo" class="mr-2">
+                    Código errado
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo" class="mr-2">
+                    Empaque / repuesto en mal estado
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo" class="mr-2">
+                    Mercadería sin empaque de marca
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo" class="mr-2">
+                    Repuesto incompleto
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo" class="mr-2">
+                    Repuesto diferente a la muestra / original
+                </label>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 mb-4 p-4 rounded-lg">
+            <h2 class="text-lg font-semibold mb-2">Documento:</h2>
+            <div class="grid grid-cols-2 gap-2">
+                <label class="flex items-center">
+                    <input type="radio" name="documento" class="mr-2">
+                    Factura
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="documento" class="mr-2">
+                    Boleta
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="documento" class="mr-2">
+                    Nota de venta
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="documento" class="mr-2">
+                    Guía de remisión
+                </label>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mt-2">
+                <div class="flex items-center">
+                    <label class="w-1/3">Ingrese el número del documento:</label>
+                    <input type="text" class="border border-gray-300 rounded p-2 w-2/3">
+                    <button class="ml-2 bg-blue-700 text-white px-4 py-2 rounded">Buscar</button>
+                </div>
+                <div class="flex items-center">
+                    <label class="w-1/3">Fecha de Venta</label>
+                    <input type="text" class="border border-gray-300 rounded-md p-2 w-2/3">
+                </div>
+                <div class="flex items-center">
+                    <label class="w-1/3">Provincia</label>
+                    <input type="text" class="border border-gray-300 rounded-md p-2 w-2/3">
+                </div>
+                <div class="flex items-center">
+                    <label class="w-1/3">N° Interno</label>
+                    <input type="text" class="border border-gray-300 rounded-md p-2 w-2/3">
+                </div>
+                <div class="flex items-center">
+                    <label class="w-1/3">Guía de remisión</label>
+                    <input type="text" class="border border-gray-300 rounded-md p-2 w-2/3">
+                </div>
+                <div class="flex items-center">
+                    <label class="w-1/3">Sucursal</label>
+                    <input type="text" class="border border-gray-300 rounded-md p-2 w-2/3">
+                </div>
+                <div class="flex items-center">
+                    <label class="w-1/3">Almacén</label>
+                    <input type="text" class="border border-gray-300 rounded-md p-2 w-2/3">
+                </div>
+                <div class="flex items-center">
+                    <label class="w-1/3">Condición de pago</label>
+                    <input type="text" class="border border-gray-300 rounded-md p-2 w-2/3">
+                </div>
+                <div class="flex items-center">
+                    <label class="w-1/3">Vendedor</label>
+                    <input type="text" class="border border-gray-300 rounded-md p-2 w-2/3">
+                </div>
+                <div class="flex items-center">
+                    <label class="w-1/3">Transportista</label>
+                    <input type="text" class="border border-gray-300 rounded-md p-2 w-2/3">
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 mb-4 p-4 rounded-lg">
+            <h2 class="text-lg font-semibold mb-4">Datos del cliente y persona que registra el reclamo</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Cliente -->
+                <div class="flex flex-col">
+                    <label for="cliente" class="mb-1 font-medium">Cliente</label>
+                    <input type="text" id="cliente" class="border border-gray-300 rounded p-2">
+                </div>
+                <!-- DNI -->
+                <div class="flex items-end">
+                    <div class="flex-grow flex flex-col">
+                        <label for="dni" class="mb-1 font-medium">DNI <span class="text-red-600">*</span></label>
+                        <input type="text" id="dni" class="border border-gray-300 rounded-md p-2">
+                    </div>
+                    <button class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                        Buscar
+                    </button>
+                </div>
+                <!-- Nombres -->
+                <div class="flex flex-col">
+                    <label for="nombres" class="mb-1 font-medium">Nombres</label>
+                    <input type="text" id="nombres" class="border border-gray-300 rounded-md p-2">
+                </div>
+                <!-- Apellidos -->
+                <div class="flex flex-col">
+                    <label for="apellidos" class="mb-1 font-medium">Apellidos</label>
+                    <input type="text" id="apellidos" class="border border-gray-300 rounded-md p-2">
+                </div>
+                <!-- Email -->
+                <div class="flex flex-col">
+                    <label for="email" class="mb-1 font-medium">E-mail <span class="text-red-600">*</span></label>
+                    <input type="email" id="email" class="border border-gray-300 rounded-md p-2">
+                </div>
+                <!-- Teléfono -->
+                <div class="flex flex-col">
+                    <label for="telefono" class="mb-1 font-medium">Teléfono <span class="text-red-600">*</span></label>
+                    <input type="tel" id="telefono" class="border border-gray-300 rounded-md p-2">
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="bg-blue-50 mb-4 p-4 rounded-lg">
+            <h2 class="text-lg font-semibold mb-2">Seleccionar productos en reclamo:</h2>
+            <table class="w-full border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="border border-gray-300 p-2">Item</th>
+                        <th class="border border-gray-300 p-2">Lin</th>
+                        <th class="border border-gray-300 p-2">Org</th>
+                        <th class="border border-gray-300 p-2">Marc</th>
+                        <th class="border border-gray-300 p-2">Descp. Marc</th>
+                        <th class="border border-gray-300 p-2">Fábrica</th>
+                        <th class="border border-gray-300 p-2">Artículo</th>
+                        <th class="border border-gray-300 p-2">Descripción</th>
+                        <th class="border border-gray-300 p-2">Cant.</th>
+                        <th class="border border-gray-300 p-2">Und. Reclamo</th>
+                        <th class="border border-gray-300 p-2">Todos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border border-gray-300 p-5 text-center" colspan="11"> </td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </div>
+
+        <div class="bg-blue-50 mb-4 p-4 rounded-lg">
+            <h2 class="text-lg font-semibold mb-2">Detalles del reclamo:</h2>
+            <textarea class="w-full border border-gray-300 rounded p-2" rows="4" placeholder="Escribir detalle"></textarea>
+            <div class="flex items-center mt-2">
+                <button class="bg-blue-700 text-white px-4 py-2 rounded">Elegir archivo</button>
+                <span class="ml-2">Adjuntar archivos (JPG; PNG; MP4 5mb Max.)</span>
+            </div>
+        </div>
+
+        <div class="flex justify-end space-x-4">
+            <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded">Cancelar</button>
+            <button class="bg-blue-700 text-white px-4 py-2 rounded">Generar</button>
+        </div>
+    </div>
+    <footer class="text-center py-3" style="color: #002260; font-size: 1.1rem;">
+        © 2025 M&M. Todos los derechos reservados.
+    </footer>
+</div>
+{% endblock %}
+
+{% block customJS %}
+<script src="{{ url_for('static', filename ='assets/customJS/file.js') }}"></script>
+{% endblock %}

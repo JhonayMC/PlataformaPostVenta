@@ -1,235 +1,272 @@
 {% extends 'public/base_cpanel.html' %}
-<!--Cambiando el title-->
 {% block title %}Crud con Python 🐍 | Registrar Empleado{% endblock %}
-<!---->
+
 {% block customCSS %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
 {% endblock %}
 
-<!--Inicio del block-->
 {% block body %}
-<div class="max-w-5xl mx-auto p-4">
-  <div class="bg-blue-900 text-white p-4 rounded-t-lg">
-      <h1 class="text-xl font-bold" style="color: white;">Registrar reclamo por falla de producto</h1>
-  </div>
-  <div class="bg-white p-4 rounded-b-lg shadow-lg">
-      <div class="mb-4">
-          <h2 class="text-lg font-semibold mb-2">Documento:</h2>
-          <div class="flex items-center space-x-4 mb-2">
-              <label class="flex items-center">
-                  <input type="radio" name="documento" class="mr-2"> Factura
-              </label>
-              <label class="flex items-center">
-                  <input type="radio" name="documento" class="mr-2"> Boleta
-              </label>
-              <label class="flex items-center">
-                  <input type="radio" name="documento" class="mr-2"> Nota de venta
-              </label>
-          </div>
-          <div class="flex items-center space-x-4 mb-2">
-              <label class="flex-1">
-                  Ingrese el número del documento:
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <button class="bg-blue-700 text-white px-4 py-2 rounded">Buscar</button>
-          </div>
-          <div class="grid grid-cols-2 gap-4 mb-2">
-              <label>
-                  Fecha de Venta
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  Provincia
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  N° Interno
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  Guía de remisión
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  Sucursal
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  Almacén
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  Condición de pago
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  Vendedor
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  Transportista
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-          </div>
-      </div>
-      <div class="mb-4">
-          <h2 class="text-lg font-semibold mb-2">Datos del cliente y persona que registra reclamo</h2>
-          <div class="grid grid-cols-2 gap-4 mb-2">
-              <label>
-                  Cliente
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-          </div>
-          <div class="grid grid-cols-3 gap-4 mb-2">
-              <label>
-                  DNI *
-                  <div class="flex items-center">
-                      <input type="text" class="border border-gray-300 rounded p-2 w-full">
-                      <button class="bg-blue-700 text-white px-4 py-2 rounded ml-2">Buscar</button>
-                  </div>
-              </label>
-              <label>
-                  Nombres
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  Apellidos
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-          </div>
-          <div class="grid grid-cols-2 gap-4 mb-2">
-              <label>
-                  E-mail
-                  <input type="email" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  Teléfono *
-                  <input type="tel" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-          </div>
-      </div>
-      <div class="mb-4">
-          <h2 class="text-lg font-semibold mb-2">Seleccionar producto en reclamo:</h2>
-          <table class="w-full border border-gray-300">
-              <thead>
-                  <tr class="bg-gray-200">
-                      <th class="border border-gray-300 p-2">Itm</th>
-                      <th class="border border-gray-300 p-2">Lin</th>
-                      <th class="border border-gray-300 p-2">Org</th>
-                      <th class="border border-gray-300 p-2">Marc</th>
-                      <th class="border border-gray-300 p-2">Desc. Marc</th>
-                      <th class="border border-gray-300 p-2">Fábrica</th>
-                      <th class="border border-gray-300 p-2">Artículo</th>
-                      <th class="border border-gray-300 p-2">Descripción</th>
-                      <th class="border border-gray-300 p-2">Cant.</th>
-                      <th class="border border-gray-300 p-2">Und. Reclamo</th>
-                      <th class="border border-gray-300 p-2">Selec.</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                      <td class="border border-gray-300 p-2"></td>
-                      <td class="border border-gray-300 p-2"></td>
-                      <td class="border border-gray-300 p-2"></td>
-                      <td class="border border-gray-300 p-2"></td>
-                      <td class="border border-gray-300 p-2"></td>
-                      <td class="border border-gray-300 p-2"></td>
-                      <td class="border border-gray-300 p-2"></td>
-                      <td class="border border-gray-300 p-2"></td>
-                      <td class="border border-gray-300 p-2"></td>
-                      <td class="border border-gray-300 p-2"></td>
-                      <td class="border border-gray-300 p-2"></td>
-                  </tr>
-              </tbody>
-          </table>
-      </div>
-      <div class="mb-4">
-          <h2 class="text-lg font-semibold mb-2">Datos del vehículo:</h2>
-          <div class="grid grid-cols-4 gap-4 mb-2">
-              <label>
-                  N° Placa
-                  <div class="flex items-center">
-                      <input type="text" class="border border-gray-300 rounded p-2 w-full">
-                      <button class="bg-blue-700 text-white px-4 py-2 rounded ml-2">Buscar</button>
-                  </div>
-              </label>
-              <label>
-                  Marca
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  Modelo del vehículo
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  Año
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  Modelo del motor
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-          </div>
-          <div class="mb-2">
-              <h3 class="text-md font-semibold mb-2">Tipo de operación:</h3>
-              <div class="flex items-center space-x-4 mb-2">
-                  <label class="flex items-center">
-                      <input type="radio" name="operacion" class="mr-2"> Transporte de carga
-                  </label>
-                  <label class="flex items-center">
-                      <input type="radio" name="operacion" class="mr-2"> Transporte de pasajeros
-                  </label>
-                  <label class="flex items-center">
-                      <input type="radio" name="operacion" class="mr-2"> Construcción
-                  </label>
-                  <label class="flex items-center">
-                      <input type="radio" name="operacion" class="mr-2"> Minería
-                  </label>
-                  <label class="flex items-center">
-                      <input type="radio" name="operacion" class="mr-2"> Agrícola
-                  </label>
-                  <button class="bg-blue-700 text-white px-4 py-2 rounded">Agregar</button>
-              </div>
-          </div>
-          <div class="grid grid-cols-2 gap-4 mb-2">
-              <label>
-                  Fecha de instalación del producto:
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  Horas de uso del producto en reclamo:
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  Kilometraje en la instalación:
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-              <label>
-                  Kilometraje actual:
-                  <input type="text" class="border border-gray-300 rounded p-2 w-full">
-              </label>
-          </div>
-      </div>
-      <div class="mb-4">
-          <h2 class="text-lg font-semibold mb-2">Detalles del reclamo:</h2>
-          <textarea class="border border-gray-300 rounded p-2 w-full mb-2" rows="4" placeholder="Escribir detalle"></textarea>
-          <div class="flex items-center space-x-4">
-              <button class="bg-blue-700 text-white px-4 py-2 rounded">Elegir archivo</button>
-              <span>Adjuntar archivos (JPG, PNG, MP4)</span>
-          </div>
-      </div>
-      <div class="flex justify-end space-x-4">
-          <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded" href="./dashboard">Cancelar</button>
-          <button class="bg-blue-700 text-white px-4 py-2 rounded">Guardar</button>
-      </div>
-  </div>
-</div>
+<div class="w-full min-h-screen bg-gray-50 px-3">
+    <div class="w-full">
+        <div class="bg-white rounded-lg shadow-lg">
+            <!-- Header with back arrow, title and logo -->
+            <div class="bg-blue-900 text-white p-4 rounded-t-lg flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="./dashboard" class="mr-4 hover:text-gray-300">
+                        <i class="fas fa-arrow-left text-2xl"></i>
+                    </a>
+                    <h1 class="text-xl font-bold" style="color: white;">Registrar reclamo por falla de producto</h1>
+                </div>
+                <img src="{{ url_for('static', filename='assets/img/mymblack.png') }}" 
+                     alt="Logo M&M" 
+                     class="h-8 md:h-10" />
+            </div>
 
-<footer class="text-center text-white text-sm py-4">
-  © 2025 M&M. Todos los derechos reservados.
-</footer>
-{% endblock %} {% block customJS %}
+            <!-- Form content -->
+            <div class="p-6 space-y-6">
+                <!-- Document section with light blue background -->
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <div class="mb-4">
+                        <h2 class="text-lg font-semibold mb-2 text-blue-900">Documento:</h2>
+                        <div class="flex items-center space-x-4 mb-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="documento" class="mr-2"> Factura
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="documento" class="mr-2"> Boleta
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="documento" class="mr-2"> Nota de venta
+                            </label>
+                        </div>
+                        <div class="flex items-center space-x-4 mb-2">
+                            <label class="flex-1">
+                                Ingrese el número del documento:
+                                <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                            </label>
+                            <button class="bg-blue-700 text-white px-4 py-2 rounded">Buscar</button>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mb-2">
+                            <label>
+                                Fecha de Venta
+                                <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                            </label>
+                            <label>
+                                Provincia
+                                <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                            </label>
+                            <label>
+                                N° Interno
+                                <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                            </label>
+                            <label>
+                                Guía de remisión
+                                <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                            </label>
+                            <label>
+                                Sucursal
+                                <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                            </label>
+                            <label>
+                                Almacén
+                                <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                            </label>
+                            <label>
+                                Condición de pago
+                                <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                            </label>
+                            <label>
+                                Vendedor
+                                <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                            </label>
+                            <label>
+                                Transportista
+                                <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client data section with light gray background -->
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h2 class="text-lg font-semibold mb-2 text-blue-900">Datos del cliente y persona que registra reclamo</h2>
+                    <!-- Previous client data inputs with enhanced styling -->
+                    <div class="grid grid-cols-2 gap-4 mb-2">
+                        <label class="block">
+                            <span class="text-gray-700">Cliente</span>
+                            <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200">
+                        </label>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 mb-2">
+                        <label>
+                            DNI *
+                            <div class="flex items-center">
+                                <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                                <button class="bg-blue-700 text-white px-4 py-2 rounded ml-2">Buscar</button>
+                            </div>
+                        </label>
+                        <label>
+                            Nombres
+                            <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                        </label>
+                        <label>
+                            Apellidos
+                            <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                        </label>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-2">
+                        <label>
+                            E-mail
+                            <input type="email" class="border border-gray-300 rounded p-2 w-full">
+                        </label>
+                        <label>
+                            Teléfono *
+                            <input type="tel" class="border border-gray-300 rounded p-2 w-full">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Product selection section with light purple background -->
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h2 class="text-lg font-semibold mb-2 text-blue-900">Seleccionar producto en reclamo:</h2>
+                    <!-- Previous table with enhanced styling -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-200">
+                                    <th class="border border-gray-300 p-2">Itm</th>
+                                    <th class="border border-gray-300 p-2">Lin</th>
+                                    <th class="border border-gray-300 p-2">Org</th>
+                                    <th class="border border-gray-300 p-2">Marc</th>
+                                    <th class="border border-gray-300 p-2">Desc. Marc</th>
+                                    <th class="border border-gray-300 p-2">Fábrica</th>
+                                    <th class="border border-gray-300 p-2">Artículo</th>
+                                    <th class="border border-gray-300 p-2">Descripción</th>
+                                    <th class="border border-gray-300 p-2">Cant.</th>
+                                    <th class="border border-gray-300 p-2">Und. Reclamo</th>
+                                    <th class="border border-gray-300 p-2">Selec.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-gray-300 p-2"></td>
+                                    <td class="border border-gray-300 p-2"></td>
+                                    <td class="border border-gray-300 p-2"></td>
+                                    <td class="border border-gray-300 p-2"></td>
+                                    <td class="border border-gray-300 p-2"></td>
+                                    <td class="border border-gray-300 p-2"></td>
+                                    <td class="border border-gray-300 p-2"></td>
+                                    <td class="border border-gray-300 p-2"></td>
+                                    <td class="border border-gray-300 p-2"></td>
+                                    <td class="border border-gray-300 p-2"></td>
+                                    <td class="border border-gray-300 p-2"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Vehicle data section with light green background -->
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h2 class="text-lg font-semibold mb-2 text-blue-900">Datos del vehículo:</h2>
+                    <div class="grid grid-cols-4 gap-4 mb-2">
+                        <label>
+                            N° Placa
+                            <div class="flex items-center">
+                                <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                                <button class="bg-blue-700 text-white px-4 py-2 rounded ml-2">Buscar</button>
+                            </div>
+                        </label>
+                        <label>
+                            Marca
+                            <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                        </label>
+                        <label>
+                            Modelo del vehículo
+                            <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                        </label>
+                        <label>
+                            Año
+                            <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                        </label>
+                        <label>
+                            Modelo del motor
+                            <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                        </label>
+                    </div>
+                    <div class="mb-2">
+                        <h3 class="text-md font-semibold mb-2">Tipo de operación:</h3>
+                        <div class="flex items-center space-x-4 mb-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="operacion" class="mr-2"> Transporte de carga
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="operacion" class="mr-2"> Transporte de pasajeros
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="operacion" class="mr-2"> Construcción
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="operacion" class="mr-2"> Minería
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="operacion" class="mr-2"> Agrícola
+                            </label>
+                            <button class="bg-blue-700 text-white px-4 py-2 rounded">Agregar</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-2">
+                        <label>
+                            Fecha de instalación del producto:
+                            <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                        </label>
+                        <label>
+                            Horas de uso del producto en reclamo:
+                            <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                        </label>
+                        <label>
+                            Kilometraje en la instalación:
+                            <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                        </label>
+                        <label>
+                            Kilometraje actual:
+                            <input type="text" class="border border-gray-300 rounded p-2 w-full">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Claim details section with light yellow background -->
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h2 class="text-lg font-semibold mb-2 text-blue-900">Detalles del reclamo:</h2>
+                    <textarea class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200" rows="4" placeholder="Escribir detalle"></textarea>
+                    <div class="flex items-center space-x-4 mt-2">
+                        <button class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition">
+                            <i class="fas fa-paperclip mr-2"></i>Elegir archivo
+                        </button>
+                        <span class="text-gray-600">Adjuntar archivos (JPG, PNG, MP4)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer buttons -->
+            <div class="bg-blue-50 px-6 py-4 rounded-b-lg flex justify-end space-x-4">
+                <button class="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400 transition">
+                    Cancelar
+                </button>
+                <button class="bg-blue-700 text-white px-6 py-2 rounded hover:bg-blue-800 transition">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+    <footer class="text-center py-3" style="color: #002260; font-size: 1.1rem;">
+        © 2025 M&M. Todos los derechos reservados.
+    </footer>
+    
+</div>
+{% endblock %}
+
+{% block customJS %}
 <script src="{{ url_for('static', filename ='assets/customJS/file.js') }}"></script>
 {% endblock %}
