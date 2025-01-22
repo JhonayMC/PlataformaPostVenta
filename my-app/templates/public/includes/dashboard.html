@@ -18,8 +18,9 @@
   }
 
   .gradient-header {
-    background: linear-gradient(to right, #002260, #6EC1E4);
-    height: 20vh; 
+    /*background: linear-gradient(to right, #002260, #6EC1E4);*/
+    background-color: white;
+    height: 15vh; 
   }
   .grid {
   display: grid;
@@ -32,7 +33,7 @@
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  /*box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);*/
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -70,7 +71,7 @@
 
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar min-h-screen flex flex-col" 
-     style="background-image: url('{{ url_for('static', filename='assets/img/fondoweb.jpg') }}'); 
+     style="background-image: url('{{ url_for('static', filename='assets/img/fondoblanco.jpg') }}'); 
             background-size: cover; 
             background-position: center; 
             background-repeat: no-repeat;">
@@ -83,17 +84,18 @@
             <!-- Content wrapper -->
             <div class="content-wrapper flex-grow">
                 <!-- Header actualizado -->
-                <div class="gradient-header w-full flex items-center px-6 py-6">
+                <div class="gradient-header w-full flex items-center px-4">
+
                     <!-- Contenedor del texto -->
                     <div class="flex flex-col items-start">
-                        <h1 class="text-2xl font-bold text-white">ATENCIÓN DE QUEJAS Y RECLAMOS</h1>
-                        <p class="text-sm text-gray-200">Siempre listos para ayudarte</p>
+                        <h1 class="text-2xl font-bold text-black">ATENCIÓN DE QUEJAS Y RECLAMOS</h1>
+                        <p class="text-sm text-black">Siempre listos para ayudarte</p>
                     </div>
                     <!-- Logo -->
                     <div class="flex items-center ml-auto">
                         <img src="{{ url_for('static', filename='assets/img/logoMyM.png') }}" 
                              alt="M&M Logo" 
-                             style="width: 25vh; height: 25vh; object-fit: contain;">
+                             style="width: 20vh; height: 20vh; object-fit: contain;">
                     </div>
                 </div>
                 <!-- Content -->
@@ -181,7 +183,7 @@
             </div>
 
             <!-- Footer -->
-            <footer class="footer-transparent text-center text-white text-sm">
+            <footer class="footer-transparent text-center text-sm" style="background-color: black;color: white;">
                 © 2025 M&M. Todos los derechos reservados.
             </footer>
         </div>

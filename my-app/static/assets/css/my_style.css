@@ -6,7 +6,7 @@ html, body {
 }
 body {  
   font-family: "Open Sans", sans-serif;  
- /* background: linear-gradient(315deg, #002260 20%, #0056b3 50%, #8fcffb 100%);  background-repeat: no-repeat;  */
+  background: linear-gradient(315deg, #002260 20%, #0056b3 50%, #8fcffb 100%);  background-repeat: no-repeat;  
   background-size: cover;  
   display: flex;  
   flex-direction: column;  
