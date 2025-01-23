@@ -1,0 +1,177 @@
+<style>
+    .layout-menu {
+        background: linear-gradient(to right, #000000, #1A1A1A, #333333, #4F4F4F) !important;
+        backdrop-filter: blur(8px);
+    }
+  
+    .menu-item {
+      transition: all 0.3s ease;
+    }
+    .app-brand-logo img {
+      transition: transform 0.5s ease;
+    }
+  
+    .app-brand-logo:hover img {
+      transform: scale(1.05);
+    }
+    .app-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+  
+    .app-brand-link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%; /* Asegura que el contenedor del logo ocupe todo el ancho */
+    }
+  
+    .app-brand-logo img {
+      max-width: 80%; /* Ajusta el tamaño del logo según sea necesario */
+      height: auto;
+  }
+  
+  
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animate menu items on load
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(-20px)';
+            setTimeout(() => {
+                item.style.transition = 'all 0.5s ease';
+                item.style.opacity = '1';
+                item.style.transform = 'translateX(0)';
+            }, 100 * index);
+        });
+    
+        // Logo animation
+        const logo = document.querySelector('.app-brand-logo img');
+        if (logo) {
+            setInterval(() => {
+                logo.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    logo.style.transform = 'scale(1)';
+                }, 200);
+            }, 5000);
+        }
+    
+        // Active menu item highlight effect
+        const activeMenuItem = document.querySelector('.menu-item.active');
+        if (activeMenuItem) {
+            activeMenuItem.style.animation = 'pulse 2s infinite';
+        }
+    
+        // Add hover sound effect (optional)
+        menuItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                // You can add a subtle sound effect here if desired
+                item.style.transition = 'all 0.3s ease';
+                item.style.transform = 'translateX(10px)';
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'translateX(0)';
+            });
+        });
+    });
+    </script>
+  <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <div class="app-brand demo py-4">
+      <a href="{{ url_for('dashboard') }}" 
+      class="app-brand-link d-flex justify-content-center"> 
+        <span class="app-brand-logo demo"> 
+          <img src="{{ url_for('static', filename ='assets/img/mymblack.png') }}" alt="Logo" 
+          class="max-w-[30vh] h-auto mx-auto object-contain" /> 
+        </span> 
+      </a>
+     
+      <a
+        href="javascript:void(0);"
+        class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+        <i class="bx bx-chevron-left bx-sm align-middle"></i>
+      </a>
+    </div>
+  
+    <div class="menu-inner-shadow"></div>
+    <ul class="menu-inner py-5">
+      <li
+        class="menu-item {% if request.path == '/reclamo' %} active {% endif %}">
+        <a href="{{ url_for('reclamo') }}" class="menu-link">
+            <i class="menu-icon bi bi-tools"></i>
+            <div data-i18n="Basic">Reclamo por falla de producto</div>
+          </a>
+      </li>
+      <li
+        class="menu-item {% if request.path == '/otroReclamo' %} active {% endif %}">
+        <a href="{{ url_for('otroReclamo') }}" class="menu-link">
+          <i class="menu-icon bi bi-chat-dots"></i>
+          <div data-i18n="Basic">Otro tipo de reclamo o queja</div>
+        </a>
+      </li>
+      <li
+        class="menu-item {% if request.path == '/consultarEstado' %} active {% endif %}">
+        <a href="{{ url_for('consultarEstado') }}" class="menu-link">
+          <i class="menu-icon bi bi-printer-fill"></i>
+          <div data-i18n="Basic">Consultar estado de reclamo o queja</div>
+        </a>
+      </li>
+      <!--
+      <li
+        class="menu-item {% if request.path == '/registrar-impresion' %} active {% endif %}">
+        <a href="{{ url_for('viewFormImpresion') }}" class="menu-link">
+          <i class="menu-icon bi bi-printer-fill"></i>
+          <div data-i18n="Basic">Registrar Impresion</div>
+        </a>
+      </li>
+      <li
+        class="menu-item {% if request.path == '/lista-de-cola-impresiones' %} active{% endif %}">
+        <a href="/lista-de-cola-impresiones" class="menu-link">
+          <i class="menu-icon bi bi-list-task"></i>
+          <div data-i18n="Boxicons">Cola de Impresiones</div>
+        </a>
+      </li>
+      <li
+      class="menu-item {% if request.path == '/lista-de-correlativos' %} active {% endif %}">
+      <a href="/lista-de-correlativos" class="menu-link">
+        <i class="menu-icon bi bi-list-ol"></i>
+        <div data-i18n="Tables">Lista de Correlativos</div>
+      </a>
+     </li>-->
+      <li
+        class="menu-item {% if request.path == '/descargar-informe-empleados' %} active {% endif %}">
+        <a href="/descargar-informe-empleados" class="menu-link">
+          <i class="menu-icon bi bi-file-earmark-spreadsheet-fill"></i>
+          <div data-i18n="Tables">Reportes</div>
+        </a>
+      </li>
+      <li
+        class="menu-item {% if request.path == '/lista-de-usuarios' %} active {% endif %}">
+        <a href="/lista-de-usuarios" class="menu-link">
+          <i class="menu-icon bi bi-person-lines-fill"></i>
+          <div data-i18n="Tables">Lista de Usuarios</div>
+        </a>
+      </li>
+      <!--
+      <li
+        class="menu-item {% if request.path == '/mi-perfil' %} active {% endif %}">
+        <a href="/mi-perfil" class="menu-link">
+          <i class="menu-icon bi bi-person-fill-gear"></i>
+          <div data-i18n="Tables">Mi Perfil</div>
+        </a>
+      </li> -->
+      <li class="menu-item">
+        <a href="{{ url_for('cerraSesion') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+          <div data-i18n="Tables">Salir</div>
+        </a>
+      </li>
+    </ul>
+  </aside>
+  
+  
+  
+  
