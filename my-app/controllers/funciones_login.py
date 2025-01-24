@@ -214,3 +214,53 @@ def dataLoginSesion():
         "ruc_user": session['ruc_user']
     }
     return inforLogin
+
+#Para guardar a los usuarios MyM
+def recibeInsertRegisterUserMyM(nombre_completo, usuario, password, compania):
+    # Validar los datos antes de procesar
+    respuestaValidar = validarDataRegisterLoginMyM(nombre_completo, usuario, password, compania)
+
+    if respuestaValidar:
+        nueva_password = generate_password_hash(password, method='scrypt')  # Encriptar la contraseña
+        try:
+            # Obtener la conexión a la base de datos
+            connection = connectionBD()
+            if connection:
+                with connection.cursor() as mycursor:
+                    # Consulta SQL para insertar los datos en la tabla UsersMyM
+                    sql = "INSERT INTO UsersMyM (nombre_completo, usuario, password, compania) VALUES (?, ?, ?, ?)"
+                    valores = (nombre_completo, usuario, nueva_password, compania)
+                    mycursor.execute(sql, valores)
+                    connection.commit()
+                    resultado_insert = mycursor.rowcount  # Verificar cuántas filas fueron afectadas
+                    return resultado_insert
+            else:
+                return 0  # Retorna 0 si no se pudo conectar a la base de datos
+        except Exception as e:
+            print(f"Error en el Insert UsersMyM: {e}")  # Mostrar el error en caso de fallo
+            return 0
+    else:
+        return 0  # Retorna 0 si la validación falla
+
+def validarDataRegisterLoginMyM(nombre_completo, usuario, password, compania):
+    try:
+        connection = connectionBD()
+        if connection:
+            with connection.cursor() as cursor:
+                querySQL = "SELECT * FROM UsersMyM WHERE usuario = ?"
+                cursor.execute(querySQL, (usuario,))
+                userBD = cursor.fetchone()
+
+                if userBD is not None:
+                    flash('El registro no fue procesado, ya existe la cuenta', 'error')
+                    return False
+                elif not nombre_completo or not usuario or not password or not compania:
+                    flash('Por favor llene los campos del formulario.', 'error')
+                    return False
+                else:
+                    return True
+        else:
+            return False
+    except Exception as e:
+        print(f"Error en validarDataRegisterLoginMyM: {e}")
+        return False

@@ -135,31 +135,79 @@ def loginCliente():
                                    
 # Registro de Usuarios MyM
 #Login Usuario MyM
-@app.route('/login-mym', methods=['GET'])
-def cpanelRegisterUserMym():
-    if 'conectado' in session:
+@app.route('/login-mym', methods=['GET', 'POST'])
+def loginUserMyM():
+    if 'loggedin' in session:
+        return redirect(url_for('menuMyM'))
+    else:
+        if request.method == 'POST' and 'usuario' in request.form and 'password' in request.form and 'compania' in request.form:
+            usuario = str(request.form['usuario'])
+            password = str(request.form['password'])
+            compania = str(request.form['compania'])
+            compania_map = {
+                '1': '30 ANADI', 
+                '2': '10 M&M REPUESTOS Y SERVICIOS S.A.'
+            }
+            mapped_company = compania_map[compania]
+            conexion_MySQLdb = connectionBD()
+            cursor = conexion_MySQLdb.cursor()
+            cursor.execute(""" SELECT * FROM UsersMyM 
+                WHERE usuario = ? AND compania = ?
+            """, (usuario, mapped_company))
+            account = cursor.fetchone()
+            if account:
+                columns = [column[0] for column in cursor.description]
+                account_dict = dict(zip(columns, account))
+                
+                # Use the correct column name for password
+                # Assuming the password column is actually named 'password' or something similar
+                if check_password_hash(account_dict['password'], password):
+                    session['loggedin'] = True
+                    session['id'] = account_dict['id']
+                    session['usuario'] = account_dict['usuario']
+                    session['compania'] = account_dict['compania']
+                    flash('la sesión fue correcta.', 'success')
+                    return redirect(url_for('menuMyM'))
+                else:
+                    flash('datos incorrectos por favor revise.', 'error')
+                    return render_template(f'{PATH_URL_LOGIN}/auth_login_usuario.html')
+            else:
+                flash('el usuario no existe, por favor verifique.', 'error')
+                return render_template(f'{PATH_URL_LOGIN}/auth_login_usuario.html')
+        else:
+            flash('primero debes iniciar sesión.', 'error')
+            return render_template(f'{PATH_URL_LOGIN}/auth_login_usuario.html')
+
+
+# Registro de Usuario MyM . /register-mym
+@app.route('/register-mym', methods=['GET'])
+def register_mym():
+    return render_template(f'{PATH_URL_LOGIN}/auth_register_usuario.html')
+
+#Para manejar el registro de un usuario MyM DE auth_register_usuario.html
+@app.route('/saved-register-mym', methods=['POST'])
+def saved_register_mym():
+    if request.method == 'POST' and 'nombre_completo_mym' in request.form and 'usuario_mym' in request.form and 'password_mym' in request.form and 'compania_mym' in request.form:
+        nombre_completo = request.form['nombre_completo_mym']
+        usuario = request.form['usuario_mym']
+        password = request.form['password_mym']
+        compania = request.form['compania_mym']
+
+        # Llamada a la función de inserción
+        resultData = recibeInsertRegisterUserMyM(
+            nombre_completo, usuario, password, compania
+        )
+
+        if resultData:  # Si la inserción fue exitosa
+            flash('Usuario registrado exitosamente.', 'success')
+            return redirect(url_for('inicio'))
+        else:
+            flash('Error al registrar usuario. Por favor, intente nuevamente.', 'error')
+            return redirect(url_for('inicio'))
+    else:
+        flash('Todos los campos son requeridos.', 'error')
         return redirect(url_for('inicio'))
-    else:
-        return render_template(f'{PATH_URL_LOGIN}/auth_login_usuario.html')
 
-#Registrar
-# Registro de Usuario MyM
-@app.route('/register-mym', methods=['GET', 'POST'])
-def registerUserMym():
-    if 'conectado' in session:
-        return redirect(url_for('inicio')) 
-    else:
-        if request.method == 'POST':
-            nombre_completo = request.form['nombre_completo_mym']
-            user_mym = request.form['user_mym']
-            pass_usermym = request.form['pass_usermym']
-            company = request.form['company']
-            
-            # Aquí puedes agregar la lógica para guardar el usuario en la base de datos
-
-            return redirect(url_for('inicio'))  # O redirigir a otra página si es necesario
-
-        return render_template(f'{PATH_URL_LOGIN}/auth_register_usuario.html')
 
 
 @app.route('/closed-session',  methods=['GET'])
@@ -187,3 +235,16 @@ def dashboard():
         # Si no está logueado, redirigir al login
         flash('Debes iniciar sesión para acceder al dashboard', 'error')
         return redirect(url_for('loginCliente')) 
+    
+#Redirigir a mi menuMyM, despues de hacer login
+@app.route('/menu-mym')
+def menuMyM():
+    if 'loggedin' in session:  # Verificar si el usuario está logueado
+        # Si está logueado, mostrar la página del dashboard
+        return render_template('public/includes/menuMyM.html')
+    else:
+        # Si no está logueado, redirigir al login
+        flash('Debes iniciar sesión para acceder al dashboard', 'error')
+        return redirect(url_for('loginUserMyM'))
+
+    

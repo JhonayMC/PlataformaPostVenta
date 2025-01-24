@@ -26,7 +26,7 @@
           <form
             id="formAuthentication"
             class="mb-3"
-            action="{{ url_for('loginCliente') }}"
+            action="{{ url_for('loginUserMyM') }}"
             method="POST">
             
             <!-- Campo Usuario -->
@@ -36,7 +36,7 @@
                 <input 
                   type="text" 
                   class="form-control border-0 flex-1 bg-transparent outline-none h-8"
-                  name="user_mym"
+                  name="usuario"
                   placeholder="Usuario M&M"
                   autofocus
                   required />
@@ -51,7 +51,7 @@
                   id="passwordField"  
                   type="password" 
                   class="form-control border-0 flex-1 bg-transparent outline-none h-8"
-                  name="pass_usermym"
+                  name="password"
                   placeholder="Contraseña"
                   aria-describedby="password"
                   required />
@@ -75,7 +75,7 @@
                 </span>
                 <select 
                     class="form-select"
-                    name="company"
+                    name="compania"
                     required
                     style="border: none; flex-grow: 1; padding: 8px 12px; background: transparent; outline: none;">
                     <option value="" disabled selected>---------------- Compañía ----------------</option>

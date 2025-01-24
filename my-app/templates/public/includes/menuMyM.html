@@ -1,177 +1,194 @@
+{% include "public/includes/head.html" %}
+
+<!-- Add required CSS -->
 <style>
-    .layout-menu {
-        background: linear-gradient(to right, #000000, #1A1A1A, #333333, #4F4F4F) !important;
-        backdrop-filter: blur(8px);
-    }
-  
-    .menu-item {
-      transition: all 0.3s ease;
-    }
-    .app-brand-logo img {
-      transition: transform 0.5s ease;
-    }
-  
-    .app-brand-logo:hover img {
-      transform: scale(1.05);
-    }
-    .app-brand {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    }
-  
-    .app-brand-link {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%; /* Asegura que el contenedor del logo ocupe todo el ancho */
-    }
-  
-    .app-brand-logo img {
-      max-width: 80%; /* Ajusta el tamaño del logo según sea necesario */
-      height: auto;
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
-  
-  
-  </style>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Animate menu items on load
-        const menuItems = document.querySelectorAll('.menu-item');
-        menuItems.forEach((item, index) => {
-            item.style.opacity = '0';
-            item.style.transform = 'translateX(-20px)';
-            setTimeout(() => {
-                item.style.transition = 'all 0.5s ease';
-                item.style.opacity = '1';
-                item.style.transform = 'translateX(0)';
-            }, 100 * index);
-        });
+
+  .card-animation {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Hace que las tarjetas ocupen toda la altura disponible */
+}
+
+  .card-animation:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .gradient-header {
+    /*background: linear-gradient(to right, #002260, #6EC1E4);*/
+    background-color: white;
+    height: 15vh; 
+  }
+  .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 8px;
+  align-items: stretch; /* Estira los elementos para que sean iguales */
+}
+
+  .transparent-card {
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /*box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);*/
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%; /* Asegura que se ajuste al contenedor */
+  }
+
+
+
+  .card-title {
+    font-family: 'Poppins', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .hover-effect:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+  }
+  .card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .footer-transparent {
+    background-color: rgba(211, 211, 211, 0.5);
+    backdrop-filter: blur(8px);
+    padding: 1rem;
+  }
+
+</style>
+
+<!-- Navbar -->
+{% include "public/includes/navbar.html" %}
+
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar min-h-screen flex flex-col" 
+     style="background-image: url('{{ url_for('static', filename='assets/img/fondoblanco.jpg') }}'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;">
+    <div class="layout-container flex-grow">
+        <!-- Menu -->
+        {% include "public/includes/menu_sidebar.html" %}
+        
+        <!-- Layout container -->
+        <div class="layout-page w-full flex flex-col">
+            <!-- Content wrapper -->
+            <div class="content-wrapper flex-grow">
+                <!-- Header actualizado -->
+                <div class="gradient-header w-full flex items-center px-4">
+
+                    <!-- Contenedor del texto -->
+                    <div class="flex flex-col items-start">
+                        <h1 class="text-2xl font-bold text-black">ATENCIÓN DE QUEJAS Y RECLAMOS</h1>
+                        <p class="text-sm text-black">Siempre listos para ayudarte</p>
+                    </div>
+                    <!-- Logo -->
+                    <div class="flex items-center ml-auto">
+                        <img src="{{ url_for('static', filename='assets/img/logoMyM.png') }}" 
+                             alt="M&M Logo" 
+                             style="width: 20vh; height: 20vh; object-fit: contain;">
+                    </div>
+                </div>
+                <!-- Content -->
+                 <div class="flex flex-col items-start" style="color: black;">
+                  <p>Menu de inicio MyM</p>
+
+                 </div>
+                
+
+            <!-- Footer -->
+            <footer class="footer-transparent text-center text-sm" style="background-color: black;color: white;">
+                © 2025 M&M. Todos los derechos reservados.
+            </footer>
+        </div>
+    </div>
+</div>
+
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<!-- Add animation script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Original menu toggle logic
+    const layoutMenuToggle = document.querySelectorAll('.layout-menu-toggle');
+    const layoutWrapper = document.querySelector('.layout-wrapper');
+    const menu = document.querySelector('.layout-menu');
     
-        // Logo animation
-        const logo = document.querySelector('.app-brand-logo img');
-        if (logo) {
-            setInterval(() => {
-                logo.style.transform = 'scale(1.1)';
-                setTimeout(() => {
-                    logo.style.transform = 'scale(1)';
-                }, 200);
-            }, 5000);
-        }
-    
-        // Active menu item highlight effect
-        const activeMenuItem = document.querySelector('.menu-item.active');
-        if (activeMenuItem) {
-            activeMenuItem.style.animation = 'pulse 2s infinite';
-        }
-    
-        // Add hover sound effect (optional)
-        menuItems.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                // You can add a subtle sound effect here if desired
-                item.style.transition = 'all 0.3s ease';
-                item.style.transform = 'translateX(10px)';
-            });
+    function toggleMenu() {
+        if (window.innerWidth < 1200) {
+            menu.style.transition = 'transform 0.3s ease-in-out';
+            layoutWrapper.classList.toggle('layout-menu-expanded');
             
-            item.addEventListener('mouseleave', () => {
-                item.style.transform = 'translateX(0)';
+            if (layoutWrapper.classList.contains('layout-menu-expanded')) {
+                menu.style.transform = 'translateX(0)';
+            } else {
+                menu.style.transform = 'translateX(-100%)';
+            }
+        }
+    }
+    
+    // Menu toggle event listeners
+    if (layoutMenuToggle) {
+        layoutMenuToggle.forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleMenu();
             });
+        });
+    }
+    
+    // Click outside menu handler
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth < 1200 && 
+            !menu.contains(e.target) && 
+            !Array.from(layoutMenuToggle).some(toggle => toggle.contains(e.target)) && 
+            layoutWrapper.classList.contains('layout-menu-expanded')) {
+            toggleMenu();
+        }
+    });
+    
+    // Window resize handler
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 1200) {
+            menu.style.transform = '';
+            layoutWrapper.classList.remove('layout-menu-expanded');
+        }
+    });
+
+    // Escape key handler
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && 
+            window.innerWidth < 1200 && 
+            layoutWrapper.classList.contains('layout-menu-expanded')) {
+            toggleMenu();
+        }
+    });
+
+    // Add hover animations for cards
+    const cards = document.querySelectorAll('.transparent-card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+            this.style.boxShadow = '0 12px 40px rgba(0, 0, 0, 0.5)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 8px 32px 0 rgba(31, 38, 135, 0.37)';
         });
     });
-    </script>
-  <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-    <div class="app-brand demo py-4">
-      <a href="{{ url_for('dashboard') }}" 
-      class="app-brand-link d-flex justify-content-center"> 
-        <span class="app-brand-logo demo"> 
-          <img src="{{ url_for('static', filename ='assets/img/mymblack.png') }}" alt="Logo" 
-          class="max-w-[30vh] h-auto mx-auto object-contain" /> 
-        </span> 
-      </a>
-     
-      <a
-        href="javascript:void(0);"
-        class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-        <i class="bx bx-chevron-left bx-sm align-middle"></i>
-      </a>
-    </div>
-  
-    <div class="menu-inner-shadow"></div>
-    <ul class="menu-inner py-5">
-      <li
-        class="menu-item {% if request.path == '/reclamo' %} active {% endif %}">
-        <a href="{{ url_for('reclamo') }}" class="menu-link">
-            <i class="menu-icon bi bi-tools"></i>
-            <div data-i18n="Basic">Reclamo por falla de producto</div>
-          </a>
-      </li>
-      <li
-        class="menu-item {% if request.path == '/otroReclamo' %} active {% endif %}">
-        <a href="{{ url_for('otroReclamo') }}" class="menu-link">
-          <i class="menu-icon bi bi-chat-dots"></i>
-          <div data-i18n="Basic">Otro tipo de reclamo o queja</div>
-        </a>
-      </li>
-      <li
-        class="menu-item {% if request.path == '/consultarEstado' %} active {% endif %}">
-        <a href="{{ url_for('consultarEstado') }}" class="menu-link">
-          <i class="menu-icon bi bi-printer-fill"></i>
-          <div data-i18n="Basic">Consultar estado de reclamo o queja</div>
-        </a>
-      </li>
-      <!--
-      <li
-        class="menu-item {% if request.path == '/registrar-impresion' %} active {% endif %}">
-        <a href="{{ url_for('viewFormImpresion') }}" class="menu-link">
-          <i class="menu-icon bi bi-printer-fill"></i>
-          <div data-i18n="Basic">Registrar Impresion</div>
-        </a>
-      </li>
-      <li
-        class="menu-item {% if request.path == '/lista-de-cola-impresiones' %} active{% endif %}">
-        <a href="/lista-de-cola-impresiones" class="menu-link">
-          <i class="menu-icon bi bi-list-task"></i>
-          <div data-i18n="Boxicons">Cola de Impresiones</div>
-        </a>
-      </li>
-      <li
-      class="menu-item {% if request.path == '/lista-de-correlativos' %} active {% endif %}">
-      <a href="/lista-de-correlativos" class="menu-link">
-        <i class="menu-icon bi bi-list-ol"></i>
-        <div data-i18n="Tables">Lista de Correlativos</div>
-      </a>
-     </li>-->
-      <li
-        class="menu-item {% if request.path == '/descargar-informe-empleados' %} active {% endif %}">
-        <a href="/descargar-informe-empleados" class="menu-link">
-          <i class="menu-icon bi bi-file-earmark-spreadsheet-fill"></i>
-          <div data-i18n="Tables">Reportes</div>
-        </a>
-      </li>
-      <li
-        class="menu-item {% if request.path == '/lista-de-usuarios' %} active {% endif %}">
-        <a href="/lista-de-usuarios" class="menu-link">
-          <i class="menu-icon bi bi-person-lines-fill"></i>
-          <div data-i18n="Tables">Lista de Usuarios</div>
-        </a>
-      </li>
-      <!--
-      <li
-        class="menu-item {% if request.path == '/mi-perfil' %} active {% endif %}">
-        <a href="/mi-perfil" class="menu-link">
-          <i class="menu-icon bi bi-person-fill-gear"></i>
-          <div data-i18n="Tables">Mi Perfil</div>
-        </a>
-      </li> -->
-      <li class="menu-item">
-        <a href="{{ url_for('cerraSesion') }}" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-          <div data-i18n="Tables">Salir</div>
-        </a>
-      </li>
-    </ul>
-  </aside>
-  
-  
-  
-  
+});
+</script>
+
+{% include "public/includes/messages.html" %}
