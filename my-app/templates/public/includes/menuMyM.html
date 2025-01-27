@@ -19,8 +19,10 @@
 
   .gradient-header {
     /*background: linear-gradient(to right, #002260, #6EC1E4);*/
-    background-color: white;
+    background-color: #002260;
     height: 15vh; 
+    border-bottom: 1px solid #eaeaea;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
   .grid {
   display: grid;
@@ -63,21 +65,40 @@
     backdrop-filter: blur(8px);
     padding: 1rem;
   }
+    /* Animación hover para el icono de notificaciones */
+    .fa-bell:hover {
+        transform: scale(1.1);
+        transition: transform 0.2s ease;
+    }
 
+    /* Estilo para el contenedor de usuario */
+    .user-container {
+        transition: all 0.2s ease;
+    }
+
+    .user-container:hover {
+        opacity: 0.8;
+    }
+    footer{
+        background-color: #002260 !important;
+        color: white;
+    }
+    .background-layout {
+    background-image: url('{{ url_for('static', filename='assets/img/fondoBlancoo.jpg') }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    }
 </style>
 
 <!-- Navbar -->
 {% include "public/includes/navbar.html" %}
 
 <!-- Layout wrapper -->
-<div class="layout-wrapper layout-content-navbar min-h-screen flex flex-col" 
-     style="background-image: url('{{ url_for('static', filename='assets/img/fondoblanco.jpg') }}'); 
-            background-size: cover; 
-            background-position: center; 
-            background-repeat: no-repeat;">
+<div class="layout-wrapper layout-content-navbar min-h-screen flex flex-col background-layout">
     <div class="layout-container flex-grow">
         <!-- Menu -->
-        {% include "public/includes/menu_sidebar.html" %}
+        {% include "public/includes/menu_sidebar_mym.html" %}
         
         <!-- Layout container -->
         <div class="layout-page w-full flex flex-col">
@@ -88,25 +109,115 @@
 
                     <!-- Contenedor del texto -->
                     <div class="flex flex-col items-start">
-                        <h1 class="text-2xl font-bold text-black">ATENCIÓN DE QUEJAS Y RECLAMOS</h1>
-                        <p class="text-sm text-black">Siempre listos para ayudarte</p>
+                        <h1 class="text-2xl font-bold text-white">ATENCIÓN DE QUEJAS Y RECLAMOS</h1>
+                        <p class="text-sl text-black" style="color: #38bdf8 !important;">POSTVENTA</p>
                     </div>
-                    <!-- Logo -->
-                    <div class="flex items-center ml-auto">
-                        <img src="{{ url_for('static', filename='assets/img/logoMyM.png') }}" 
+                    
+                    <div class="flex items-center ml-auto gap-4">
+                        <!-- Icono de notificaciones -->
+                        <div class="relative">
+                            <i class="fas fa-bell text-xl text-white hover:text-gray-900 cursor-pointer"></i>
+                            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">1</span>
+                        </div>
+                        
+                        <!-- Información del usuario -->
+                        <div class="flex items-center gap-2">
+                            <span class="text-white">User MyM</span>
+                            <div class="h-8 w-8 bg-gray-200 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-gray-600"></i>
+                            </div>
+                        </div>
+
+                        <!-- Logo -->
+                        <img src="{{ url_for('static', filename='assets/img/mymblack.png') }}" 
                              alt="M&M Logo" 
                              style="width: 20vh; height: 20vh; object-fit: contain;">
                     </div>
                 </div>
                 <!-- Content -->
-                 <div class="flex flex-col items-start" style="color: black;">
-                  <p>Menu de inicio MyM</p>
-
-                 </div>
+                <div class="container-xxl flex-grow-1 px-6 py-8">
+                    <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                        <!-- Reclamos Card -->
+                        <div class="card-animation hover-effect w-full ">
+                            <div class="transparent-card rounded-xl p-6">
+                                <div class="flex flex-col items-center justify-center text-center gap-3 mb-4">
+                                    <i class="fas fa-file-alt text-2xl text-blue-400"></i>
+                                    <h2 class="card-title text-2xl font-bold text-white">Conoce más sobre los reclamos</h2>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div class="text-gray-200">
+                                        <h3 class="font-medium text-xl mb-2" style="color: white;">¿Qué es un reclamo?</h3>
+                                        <p>Manifestación mediante el cual un consumidor expresa una disconformidad relacionada a los bienes o servicios suministrados.</p>
+                                    </div>
+                                    <ul class="space-y-2 text-gray-200">
+                                        <li class="flex items-center gap-2">
+                                            <i class="fas fa-circle text-xs"></i>
+                                            <span>Falla de producto</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Productos, marca, código no solicitados</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Precio, datos del cliente incorrectos</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Empaque, repuesto en mal estado</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Repuesto diferente a la muestra, original, etc</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Quejas Card -->
+                        <div class="card-animation hover-effect w-full">
+                            <div class="transparent-card rounded-xl p-6">
+                                <div class="flex flex-col items-center justify-center text-center gap-3 mb-4">
+                                    <i class="fas fa-comments text-2xl text-blue-400"></i>
+                                    <h2 class="card-title text-2xl font-bold text-white">Conoce más sobre las quejas</h2>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div class="text-gray-200">
+                                        <h3 class="font-medium text-xl mb-2" style="color: white;">¿Qué es una queja?</h3>
+                                        <p>Manifestación que un consumidor realiza para expresar el malestar o descontento relacionado con la atención al público, incluyendo la calidad del servicio o la actitud del personal.</p>
+                                    </div>
+                                    <ul class="space-y-2 text-gray-200">
+                                        <li class="flex items-center gap-2">
+                                            <i class="fas fa-circle text-xs"></i>
+                                            <span>Mala atención al cliente</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Personal de M&M (vendedor, cajera, seguridad, etc)</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Tiempos de espera prolongados</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Ambiente</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">•</span>
+                                            <span>Demoras en la entrega</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
-
             <!-- Footer -->
-            <footer class="footer-transparent text-center text-sm" style="background-color: black;color: white;">
+            <footer class="footer-transparent text-center text-sm">
                 © 2025 M&M. Todos los derechos reservados.
             </footer>
         </div>

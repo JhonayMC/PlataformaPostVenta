@@ -195,3 +195,50 @@ def otroReclamoG2():
     else:
         flash('primero debes iniciar sesión.', 'error')
         return redirect(url_for('inicio'))
+    
+#Menu de inicio usuarios MyM
+
+#Para que me redirija a mym_reclamo.html
+@app.route('/mym_reclamo', methods=['GET'])
+def mym_reclamo():
+    if 'loggedin' in session:
+        return render_template('public/reclamos/mym_reclamo.html')
+    else:
+        flash('primero debes iniciar sesión.', 'error')
+        return redirect(url_for('loginUserMyM'))
+
+#Para que me redirija a mym_otroReclamoQueja.html
+@app.route('/mym_otroReclamo', methods=['GET'])
+def mym_otroReclamo():
+    if 'loggedin' in session:
+        return render_template('public/reclamos/mym_otroReclamoQueja.html')
+    else:
+        flash('primero debes iniciar sesión.', 'error')
+        return redirect(url_for('loginUserMyM'))
+    
+#Para que me redirija a mym_otroReclamoG1.html
+@app.route('/mym_otroReclamoG1', methods=['GET'])
+def mym_otroReclamoG1():
+    if 'loggedin' in session:
+        return render_template('public/reclamos/mym_otroReclamoG1.html')
+    else:
+        flash('primero debes iniciar sesión.', 'error')
+        return redirect(url_for('loginUserMyM'))
+
+#Para que me redirija a otroReclamoG2.html
+@app.route('/mym_otroReclamoG2', methods=['GET'])
+def mym_otroReclamoG2():
+    if 'loggedin' in session:
+        return render_template('public/reclamos/mym_otroReclamoG2.html')
+    else:
+        flash('primero debes iniciar sesión.', 'error')
+        return redirect(url_for('loginUserMyM'))
+    
+#Para que me redirija a mym_seguimiento.html
+@app.route('/mym_seguimiento', methods=['GET'])
+def mym_seguimiento():
+    if 'loggedin' in session:
+        return render_template('public/reclamos/mym_seguimiento.html')
+    else:
+        flash('primero debes iniciar sesión.', 'error')
+        return redirect(url_for('loginUserMyM'))

@@ -1,0 +1,178 @@
+{% extends 'public/base_cpanelmym.html' %}
+<!--Cambiando el title-->
+{% block title %}Crud con Python 🐍 | Registrar Empleado{% endblock %}
+<!---->
+{% block customCSS %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <style>
+  .gradient-header {
+    /*background: linear-gradient(to right, #002260, #6EC1E4);*/
+    background-color: #ffffff;
+    height: 15vh; 
+    border-bottom: 1px solid #eaeaea;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+</style>
+  {% endblock %}
+
+
+
+<!--Inicio del block-->
+{% block body %}
+<!-- Header actualizado -->
+<div class="gradient-header w-full flex items-center px-8">
+
+    <!-- Contenedor del texto -->
+    <div class="flex flex-col items-start">
+        <h1 class="text-2xl font-bold" style="color: #002260;">ATENCIÓN DE QUEJAS Y RECLAMOS</h1>
+        <p class="text-sl text-black" style="color: #38bdf8 !important;">POSTVENTA</p>
+    </div>
+    
+    <div class="flex items-center ml-auto gap-4">
+        <!-- Icono de notificaciones -->
+        <div class="relative">
+            <i class="fas fa-bell text-xl text-blue-900 hover:text-gray-900 cursor-pointer"></i>
+            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">1</span>
+        </div>
+        
+        <!-- Información del usuario -->
+        <div class="flex items-center gap-2">
+            <span style="color: #002260;">User MyM</span>
+            <div class="h-8 w-8 bg-gray-200 rounded-full flex items-center justify-center">
+                <i class="fas fa-user text-gray-600"></i>
+            </div>
+        </div>
+
+        <!-- Logo -->
+        <img src="{{ url_for('static', filename='assets/img/logoMyM.png') }}" 
+             alt="M&M Logo" 
+             style="width: 20vh; height: 20vh; object-fit: contain;">
+    </div>
+</div>
+
+<div class="w-full min-h-screen bg-white  rounded-lg shadow-lg">
+
+    <div class="text-white px-10 py-1 rounded-t-lg flex items-center justify-between" style="background-color: #000000;">
+        <div class="flex items-center">
+            <a href="./menu-mym" class="mr-4 hover:text-gray-300">
+                <i class="fas fa-arrow-left text-2xl"></i>
+            </a>
+            <h1 class="text-xm font-bold" style="color: white;">Registrar otro tipo de reclamo o queja</h1>
+        </div>
+    </div>
+
+    <div class="bg-white p-4 rounded-b-lg">
+        <h2 class="text-gray-700 font-semibold mb-2 text-lg">Seleccionar motivo por producto:</h2>
+        <div class="bg-gray-100 p-4 rounded-lg mb-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Datos mal consignados (razón social, RUC, destino)
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Doble facturación
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Precio
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Cantidad
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Producto no solicitado
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Marca errada
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Código errado
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Empaque / repuesto en mal estado
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Mercadería sin empaque de marca
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Repuesto incompleto
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_producto" class="mr-2">
+                    Repuesto diferente a la muestra / original
+                </label>
+            </div>
+            <!-- Botón Elegir en la parte inferior derecha -->
+            <div class="mt-4 text-right">
+                <a href="{{ url_for('mym_otroReclamoG1')}}" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
+                    Elegir
+                </a>
+                <!--<button class="bg-blue-500 text-white px-4 py-2 rounded-lg">Elegir</button>-->
+            </div>
+        </div>
+
+        <h2 class="text-gray-700 font-semibold mb-2 text-lg">Seleccionar motivo por servicio:</h2>
+        <div class="bg-gray-100 p-4 rounded-lg">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_servicio" class="mr-2">
+                    Mala atención al cliente
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_servicio" class="mr-2">
+                    Personal de M&M
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_servicio" class="mr-2">
+                    Demora en la atención
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_servicio" class="mr-2">
+                    Ambiente
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_servicio" class="mr-2">
+                    Demora en la entrega de productos
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_servicio" class="mr-2">
+                    Desabasto
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="motivo_servicio" class="mr-2">
+                    Falta de información
+                </label>
+            </div>
+            <!-- Botón Elegir en la parte inferior derecha -->
+            <div class="mt-4 text-right">
+                <a href="{{ url_for('mym_otroReclamoG2')}}" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
+                    Elegir
+                </a>
+                <!--<button class="bg-blue-500 text-white px-4 py-2 rounded-lg">Elegir</button>-->
+            </div>
+        </div>
+    </div>
+    <footer class="text-center py-3 text-gray-700" style="font-size: 1.1rem; padding-top: 1rem;">
+        © 2025 M&M. Todos los derechos reservados.
+    </footer>
+    
+</div>
+
+
+{% endblock %} 
+
+{% block customJS %}
+<script src="{{ url_for('static', filename ='assets/customJS/file.js') }}"></script>
+{% endblock %}

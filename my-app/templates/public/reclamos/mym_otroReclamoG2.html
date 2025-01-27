@@ -1,0 +1,329 @@
+{% extends 'public/base_cpanelmym.html' %}
+<!--Cambiando el title-->
+{% block title %}Crud con Python 🐍 | Registrar Empleado{% endblock %}
+<!---->
+{% block customCSS %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    /* Estilos para el modal */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        opacity: 0;
+        transition: all 0.4s ease-in-out;
+    }
+
+    .modal-overlay.active {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 1.5rem;  /* Reducido de 2.5rem */
+        border-radius: 1.2rem;  /* Reducido de 1.5rem */
+        max-width: 450px;  /* Reducido de 500px */
+        width: 90%;
+        text-align: center;
+        transform: translateY(-50px) scale(0.95);
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 3px solid #87CEEB;
+        box-shadow: 0 0 20px rgba(135, 206, 235, 0.3);
+    }
+
+    .modal-overlay.active .modal-content {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    .check-icon {
+        width: 80px;  /* Reducido de 100px */
+        height: 80px;  /* Reducido de 100px */
+        background-color: #e6f3ff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;  /* Reducido de 1.5rem */
+        color: #0088ff;
+        transform: scale(0.5);
+        animation: scaleIn 0.5s ease-out forwards;
+    }
+
+    @keyframes scaleIn {
+        0% {
+            transform: scale(0.5);
+        }
+        70% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .modal-body h2 {
+        color: #333;
+        font-size: 1.5rem;  /* Reducido de 1.75rem */
+        margin-bottom: 0.75rem;  /* Reducido de 1rem */
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .modal-body p {
+        color: #666;
+        margin-bottom: 0.75rem;  /* Reducido de 1rem */
+        line-height: 1.4;  /* Reducido de 1.6 */
+        animation: fadeInUp 0.7s ease-out forwards;
+    }
+
+    .modal-body .address {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 1rem;  /* Reducido de 1.5rem */
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
+    .modal-body button {
+    background-color: #007bff; /* Ajusta este color al del botón original */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 10px;
+    }
+
+    .modal-body button:hover {
+    background-color: #0056b3; /* Efecto hover */
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .gradient-header {
+    /*background: linear-gradient(to right, #002260, #6EC1E4);*/
+    background-color: #ffffff;
+    height: 15vh; 
+    border-bottom: 1px solid #eaeaea;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    </style>
+  {% endblock %}
+
+<!--Inicio del block-->
+{% block body %}
+<!-- Header actualizado -->
+<div class="gradient-header w-full flex items-center px-8">
+
+    <!-- Contenedor del texto -->
+    <div class="flex flex-col items-start">
+        <h1 class="text-2xl font-bold" style="color: #002260;">ATENCIÓN DE QUEJAS Y RECLAMOS</h1>
+        <p class="text-sl text-black" style="color: #38bdf8 !important;">POSTVENTA</p>
+    </div>
+    
+    <div class="flex items-center ml-auto gap-4">
+        <!-- Icono de notificaciones -->
+        <div class="relative">
+            <i class="fas fa-bell text-xl text-blue-900 hover:text-gray-900 cursor-pointer"></i>
+            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">1</span>
+        </div>
+        
+        <!-- Información del usuario -->
+        <div class="flex items-center gap-2">
+            <span style="color: #002260;">User MyM</span>
+            <div class="h-8 w-8 bg-gray-200 rounded-full flex items-center justify-center">
+                <i class="fas fa-user text-gray-600"></i>
+            </div>
+        </div>
+
+        <!-- Logo -->
+        <img src="{{ url_for('static', filename='assets/img/logoMyM.png') }}" 
+             alt="M&M Logo" 
+             style="width: 20vh; height: 20vh; object-fit: contain;">
+    </div>
+</div>
+
+<div class="w-full min-h-screen bg-white  rounded-lg shadow-lg ">
+    <div class="w-full text-white px-10 py-1 rounded-t-lg flex items-center justify-between" style="background-color: #000000;">
+        <div class="flex items-center">
+            <a href="./menumym" class="mr-4 hover:text-gray-300">
+                <i class="fas fa-arrow-left text-2xl"></i>
+            </a>
+            <h1 class="ml-2 text-xm font-bold" style="color: white;">Registrar otro tipo de reclamo o queja</h1>
+        </div>
+    </div>
+        <div class="bg-white p-4 rounded-b-lg">
+            <div class="bg-gray-100 mb-4 p-4 rounded-lg">
+                <h2 class="text-gray-700 font-semibold mb-2 text-lg">Seleccionar motivo por servicio:</h2>
+                <div class="flex flex-wrap mt-2">
+                    <label class="mr-4 mb-2 flex items-center">
+                        <input type="radio" name="motivo" class="mr-2">
+                        Mala atención al cliente
+                    </label>
+                    <label class="mr-4 mb-2 flex items-center">
+                        <input type="radio" name="motivo" class="mr-2" checked>
+                        Personal de M&M
+                    </label>
+                    <label class="mr-4 mb-2 flex items-center">
+                        <input type="radio" name="motivo" class="mr-2">
+                        Demora en la atención
+                    </label>
+                    <label class="mr-4 mb-2 flex items-center">
+                        <input type="radio" name="motivo" class="mr-2">
+                        Ambiente
+                    </label>
+                    <label class="mr-4 mb-2 flex items-center">
+                        <input type="radio" name="motivo" class="mr-2">
+                        Demora en la entrega de productos
+                    </label>
+                    <label class="mr-4 mb-2 flex items-center">
+                        <input type="radio" name="motivo" class="mr-2">
+                        Desabasto
+                    </label>
+                    <label class="mr-4 mb-2 flex items-center">
+                        <input type="radio" name="motivo" class="mr-2">
+                        Falta de información
+                    </label>
+                </div>
+            </div>
+            <div class="bg-gray-100 mb-4 p-4 rounded-lg">
+                <label class="block text-gray-700 font-semibold mb-2 text-lg">Especificar fecha de queja:</label>
+                <input type="date" class="w-full p-2 border border-gray-300 rounded-md">
+            </div>
+            <div class="bg-gray-100 mb-4 p-4 rounded-lg">
+                <label class="block text-gray-700 font-semibold mb-2 text-lg">Describir queja: <span class="text-red-500">*</span></label>
+                <textarea class="w-full p-2 border border-gray-300 rounded-md" rows="4" placeholder="Escribir detalle"></textarea>
+            </div>
+            <div class="bg-gray-100 mb-4 p-4 rounded-lg">
+                <label class="block text-gray-700 font-semibold mb-2 text-lg">Adjuntar archivos (JPG, PNG, MP4 5mb Max.)</label>
+                <input type="file" class="w-full p-2 border border-gray-300 rounded-md">
+            </div>
+            <div class="bg-gray-100 mb-4 p-4 rounded-lg">
+                <h2 class="text-gray-700 font-semibold mb-2 text-lg">Datos del solicitante y persona que registra la queja:</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Cliente</label>
+                        <input type="text" class="w-full p-2 border border-gray-300 rounded-md" disabled>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">DNI <span class="text-red-500">*</span></label>
+                        <div class="flex">
+                            <input type="text" class="w-full p-2 border border-gray-300 rounded-l-md">
+                            <button class="bg-blue-900 text-white px-4 rounded-r-md">Buscar</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Nombres</label>
+                        <input type="text" class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Apellidos</label>
+                        <input type="text" class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">E-mail <span class="text-red-500">*</span></label>
+                        <input type="email" class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Teléfono <span class="text-red-500">*</span></label>
+                        <input type="tel" class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end mt-4">
+                <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md mr-2">Cancelar</button>
+                <button id="generateButton" class="bg-blue-700 text-white px-4 py-2 rounded">Generar</button>        </div>
+            </div>
+            <footer class="text-center py-3" style="color: #002260; font-size: 1.1rem;">
+                © 2025 M&M. Todos los derechos reservados.
+            </footer>
+        </div>
+        <div id="custom-modal" class="modal-overlay">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="check-icon">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <h2>Queja registrada</h2>
+                <div class="button-group mt-4">
+                  <button id="modal-new-btn">Nuevo</button>
+                  <button id="modal-next-btn">Siguiente</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        
+</div>
+{% endblock %} {% block customJS %}
+<script src="{{ url_for('static', filename ='assets/customJS/file.js') }}"></script>
+<script src="{{ url_for('static', filename ='assets/customJS/file.js') }}"></script>
+<script>
+   // JavaScript para el funcionamiento del modal
+    document.addEventListener('DOMContentLoaded', function() {
+    // Elementos del DOM
+    const saveButton = document.getElementById('generateButton'); // Botón que abre el modal
+    const modal = document.getElementById('custom-modal'); // Modal
+    const newButton = document.getElementById('modal-new-btn'); // Botón "Nuevo"
+    const nextButton = document.getElementById('modal-next-btn'); // Botón "Siguiente"
+
+    // Función para mostrar el modal
+    function showModal() {
+        modal.classList.add('active'); // Agregar clase para mostrar el modal
+    }
+
+    // Función para ocultar el modal
+    function hideModal() {
+        modal.classList.remove('active'); // Remover clase para ocultar el modal
+    }
+
+    // Redireccionar al hacer clic en los botones
+    newButton.addEventListener('click', function() {
+        window.location.href = "{{ url_for('menuMyM') }}";
+    });
+
+    nextButton.addEventListener('click', function() {
+        window.location.href = "{{ url_for('mym_seguimiento') }}";
+    });
+
+    // Mostrar el modal cuando se hace clic en el botón "Guardar"
+    saveButton.addEventListener('click', showModal);
+
+    // Cerrar modal al hacer clic fuera del contenido
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+        hideModal();
+        }
+    });
+
+    // Prevenir que el clic dentro del contenido cierre el modal
+    modal.querySelector('.modal-content').addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+    });
+
+    </script>
+{% endblock %}
+ció
