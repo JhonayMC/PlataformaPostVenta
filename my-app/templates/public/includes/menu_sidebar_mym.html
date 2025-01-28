@@ -112,14 +112,14 @@
           <div data-i18n="Basic">Generar otro tipo de reclamo o queja</div>
         </a>
       </li>
-      <li class="menu-item {% if request.path == '/consultarEstado' %} active {% endif %}">
-        <a href="{{ url_for('consultarEstado') }}" class="menu-link">
+      <li class="menu-item {% if request.path == '/mym_seguimiento' %} active {% endif %}">
+        <a href="{{ url_for('mym_seguimiento') }}" class="menu-link">
             <i class="menu-icon bi bi-clock-history"></i>
             <div data-i18n="Basic">Seguimiento</div>
         </a>
     </li>
-    <li class="menu-item {% if request.path == '/consultarEstado' %} active {% endif %}">
-        <a href="{{ url_for('consultarEstado') }}" class="menu-link">
+    <li class="menu-item {% if request.path == '/mym_dashboard' %} active {% endif %}">
+        <a href="{{ url_for('mym_dashboard') }}" class="menu-link">
             <i class="menu-icon bi bi-bar-chart-fill"></i>
             <div data-i18n="Basic">Dashboard</div>
         </a>

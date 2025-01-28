@@ -1,1 +1,493 @@
-<p>Seguimiento</p>
+{% extends 'public/base_cpanelmym.html' %}
+<!--Cambiando el title-->
+{% block title %}Crud con Python 🐍 | Registrar Empleado{% endblock %}
+<!---->
+{% block customCSS %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  
+  <style>
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+
+    .modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      width: 90%;
+      max-width: 1000px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1001;
+    }
+
+    .modal-header {
+      background: #0ea5e9;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .close-button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .tab {
+      padding: 1rem 2rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      color: #0ea5e9;
+      border-bottom: 2px solid #0ea5e9;
+    }
+
+    .content {
+      padding: 1.5rem;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .field {
+      display: flex;
+      margin-bottom: 0.5rem;
+    }
+
+    .field-label {
+      width: 200px;
+      color: #666;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      border: 1px solid #e5e7eb;
+      padding: 0.5rem;
+      text-align: left;
+    }
+
+    th {
+      background: #f9fafb;
+    }
+
+    .origin-select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .solution-textarea {
+      width: 100%;
+      height: 100px;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+  
+  {% endblock %}
+
+<!--Inicio del block-->
+{% block body %}
+<!-- Header actualizado -->
+{% include 'public/includes/header_mym.html' %}
+
+<div class="w-full min-h-screen bg-white rounded-lg shadow-lg">
+
+    <div class="text-white px-10 py-1 rounded-t-lg flex items-center justify-between" style="background-color: #000000;">
+        <div class="flex items-center">
+            <a href="./menu-mym" class="mr-4 hover:text-gray-300">
+                <i class="fas fa-arrow-left text-2xl"></i>
+            </a>
+            <h1 class="text-xm font-bold" style="color: white;">Seguimiento</h1>
+        </div>
+    </div>
+    <div class="container mx-auto p-4">
+        <div class="flex flex-wrap items-start mb-4 ml-4">
+            <!-- Tipo de Registro -->
+            <div class="w-full sm:w-1/2 lg:w-auto mr-8 flex flex-col mb-4 lg:mb-0">
+                <span class="font-bold" style="color: #002260 !important;">Tipo de registro</span>
+                <div class="flex flex-wrap items-center mt-2">
+                    <div class="mr-4 flex items-center">
+                        <input type="radio" id="reclamos" name="tipo_registro" class="mr-1">
+                        <label for="reclamos">Reclamos</label>
+                    </div>
+                    <div class="mr-4 flex items-center">
+                        <input type="radio" id="quejas" name="tipo_registro" class="mr-1">
+                        <label for="quejas">Quejas</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" id="todos" name="tipo_registro" class="mr-1">
+                        <label for="todos">Todos</label>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Cliente -->
+            <div class="w-full sm:w-1/2 lg:w-auto mr-8 flex flex-col mb-4 lg:mb-0">
+                <span class="font-bold">Cliente:</span>
+                <div class="flex items-center mt-2">
+                    <input type="text" placeholder="Ingrese código, razón social, RUC" class="border border-gray-300 rounded p-1 mr-2 w-full lg:w-auto">
+                    <button class="text-gray-500">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        
+            <!-- Estado -->
+            <div class="w-full sm:w-1/2 lg:w-auto mr-8 flex flex-col mb-4 lg:mb-0">
+                <span class="font-bold">Estado:</span>
+                <div class="flex items-center mt-2">
+                    <select class="border border-gray-300 rounded p-1 w-full lg:w-auto">
+                        <option>Seleccione estado</option>
+                    </select>
+                </div>
+            </div>
+        
+            <!-- Leyenda -->
+            <div class="w-full sm:w-1/2 lg:w-auto flex flex-col items-start">
+                <span class="font-bold">Leyenda</span>
+                <div class="flex items-center mt-2">
+                    <i class="fas fa-check text-green-500 mr-1"></i>
+                    <span>Nota de crédito proveedor</span>
+                </div>
+                <div class="flex items-center mt-1">
+                    <i class="fas fa-check text-orange-500 mr-1"></i>
+                    <span>Nota de crédito cliente</span>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="overflow-x-auto shadow-md rounded-lg">
+                <div class="inline-block min-w-full align-middle">
+                    <table class="w-full border-collapse border border-gray-300">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border border-gray-300 p-2">#</th>
+                                <th class="border border-gray-300 p-2">N° de Regist.</th>
+                                <th class="border border-gray-300 p-2">Motivo</th>
+                                <th class="border border-gray-300 p-2">Fecha Registro</th>
+                                <th class="border border-gray-300 p-2">Código Cliente</th>
+                                <th class="border border-gray-300 p-2">Razón social del cliente</th>
+                                <th class="border border-gray-300 p-2">Clasif. Venta</th>
+                                <th class="border border-gray-300 p-2">Poten. Venta</th>
+                                <th class="border border-gray-300 p-2">Documento</th>
+                                <th class="border border-gray-300 p-2">Modalidad</th>
+                                <th class="border border-gray-300 p-2">CL/CM</th>
+                                <th class="border border-gray-300 p-2">Proveedor</th>
+                                <th class="border border-gray-300 p-2">NC</th>
+                                <th class="border border-gray-300 p-2">Estado</th>
+                                <th class="border border-gray-300 p-2">Acción a realizar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 p-2">01</td>
+                                <td class="border border-gray-300 p-2">R0002</td>
+                                <td class="border border-gray-300 p-2">Falla de producto</td>
+                                <td class="border border-gray-300 p-2">02/08/2024</td>
+                                <td class="border border-gray-300 p-2">010380</td>
+                                <td class="border border-gray-300 p-2">EMP. DE TRANS. FLORES HNOS. SRL.</td>
+                                <td class="border border-gray-300 p-2">xxxxxx</td>
+                                <td class="border border-gray-300 p-2">xxxxxx</td>
+                                <td class="border border-gray-300 p-2">F22-0138810</td>
+                                <td class="border border-gray-300 p-2">Crédito</td>
+                                <td class="border border-gray-300 p-2">Compra local</td>
+                                <td class="border border-gray-300 p-2"></td>
+                                <td class="border border-gray-300 p-2"></td>
+                                <td class="border border-gray-300 p-2">Generado</td>
+                                <td class="border border-gray-300 p-2">
+                                  <button class="view-button text-blue-500">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                    <button class="text-blue-500"><i class="fas fa-times-circle"></i></button>
+                                    <button class="text-blue-500"><i class="fas fa-lightbulb"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 p-2">02</td>
+                                <td class="border border-gray-300 p-2">R0005</td>
+                                <td class="border border-gray-300 p-2">Repuesto incomple</td>
+                                <td class="border border-gray-300 p-2">17/08/2024</td>
+                                <td class="border border-gray-300 p-2">010380</td>
+                                <td class="border border-gray-300 p-2">REPUESTOS Y SERVICIO ANADI E.I.R</td>
+                                <td class="border border-gray-300 p-2">xxxxxx</td>
+                                <td class="border border-gray-300 p-2">xxxxxx</td>
+                                <td class="border border-gray-300 p-2">F11-0050872</td>
+                                <td class="border border-gray-300 p-2">Contado</td>
+                                <td class="border border-gray-300 p-2">Importada</td>
+                                <td class="border border-gray-300 p-2"></td>
+                                <td class="border border-gray-300 p-2"></td>
+                                <td class="border border-gray-300 p-2">Generado</td>
+                                <td class="border border-gray-300 p-2">
+                                    <button class="text-blue-500"><i class="fas fa-eye"></i></button>
+                                    <button class="text-blue-500"><i class="fas fa-times-circle"></i></button>
+                                    <button class="text-blue-500"><i class="fas fa-lightbulb"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 p-2">02</td>
+                                <td class="border border-gray-300 p-2">R0005</td>
+                                <td class="border border-gray-300 p-2">Repuesto incomple</td>
+                                <td class="border border-gray-300 p-2">17/08/2024</td>
+                                <td class="border border-gray-300 p-2">010380</td>
+                                <td class="border border-gray-300 p-2">REPUESTOS Y SERVICIO ANADI E.I.R</td>
+                                <td class="border border-gray-300 p-2">xxxxxx</td>
+                                <td class="border border-gray-300 p-2">xxxxxx</td>
+                                <td class="border border-gray-300 p-2">F11-0050872</td>
+                                <td class="border border-gray-300 p-2">Contado</td>
+                                <td class="border border-gray-300 p-2">Importada</td>
+                                <td class="border border-gray-300 p-2"></td>
+                                <td class="border border-gray-300 p-2"></td>
+                                <td class="border border-gray-300 p-2">Generado</td>
+                                <td class="border border-gray-300 p-2">
+                                    <button class="text-blue-500"><i class="fas fa-eye"></i></button>
+                                    <button class="text-blue-500"><i class="fas fa-times-circle"></i></button>
+                                    <button class="text-blue-500"><i class="fas fa-lightbulb"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!--VENTANA DE ALERTA-->
+        <!-- Modal -->
+    
+  </div>
+
+    <footer class="text-center py-3 text-gray-700" style="font-size: 1.1rem; padding-top: 1rem;">
+        © 2025 M&M. Todos los derechos reservados.
+    </footer>
+    
+</div>
+
+<div id="modalOverlay" class="modal-overlay">
+  <div class="modal">
+  <div class="modal-header">
+      <h2>080673 - PARTS AND SERVICE ANADI E.I.R.L.</h2>
+      <button class="close-button" onclick="closeModal()">×</button>
+  </div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('detalle')">Detalle</button>
+  <button class="tab" onclick="switchTab('cierre')">Cierre</button>
+</div>
+
+<div class="content">
+  <!-- Contenido de Detalle -->
+  <div id="detalleContent" class="tab-content active">
+    <div class="grid">
+      <div>
+        <div class="field">
+          <span class="field-label">Tipo de registro:</span>
+          <span>Reclamo</span>
+        </div>
+        <div class="field">
+          <span class="field-label">Motivo:</span>
+          <span>Repuesto incompleto</span>
+        </div>
+        <div class="field">
+          <span class="field-label">Cliente:</span>
+          <span>080673 - PARTS AND SERVICE ANADI E.I.R.L.</span>
+        </div>
+        <div class="field">
+          <span class="field-label">Persona que registro:</span>
+          <span>Ernesto Ramón Quintanil</span>
+        </div>
+        <div class="field">
+          <span class="field-label">Teléfono:</span>
+          <span>966114304</span>
+        </div>
+      </div>
+      <div>
+        <div class="field">
+          <span class="field-label">N° Registro:</span>
+          <span>R00002</span>
+        </div>
+        <div class="field">
+          <span class="field-label">Fecha de registro:</span>
+          <span>17/03/2024</span>
+        </div>
+        <div class="field">
+          <span class="field-label">DNI:</span>
+          <span>45456985</span>
+        </div>
+        <div class="field">
+          <span class="field-label">E-mail:</span>
+          <span>Eramon@mym.com.pe</span>
+        </div>
+      </div>
+  </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Lin</th>
+          <th>Org</th>
+          <th>Marc</th>
+          <th>Descrip fábrica</th>
+          <th>Artículo</th>
+          <th>Descripción</th>
+          <th>Cant.</th>
+          <th>Unid. Reclamo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>001</td>
+          <td>01</td>
+          <td>02</td>
+          <td>584</td>
+          <td>ROTA</td>
+          <td>20712368</td>
+          <td>BARRA ESTAB DELANT 15MM BA30R</td>
+          <td>20</td>
+          <td>2</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top: 1rem;">
+      <h3>Detalles del reclamo:</h3>
+      <p>El cliente indica que uno de los sensores que ha solicitado le faltan 2 accesorios.</p>
+    </div>
+  </div>
+
+  <!-- Contenido de Cierre -->
+  <div id="cierreContent" class="tab-content">
+    <div>
+      <label>Origen del reclamo:</label>
+      <select class="origin-select">
+        <option value="">Seleccionar origen</option>
+        <option value="cliente">Error de cliente</option>
+        <option value="vendedor">Error de vendedor</option>
+        <option value="almacen">Error de almacén</option>
+        <option value="despacho">Error de despacho y distrib.</option>
+        <option value="sistema">Error de sistema</option>
+        <option value="agencia">Inconvenientes con la agencia</option>
+        <option value="almacenamiento">Tiempo de almacenamiento</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Detalle de solución:</label>
+      <textarea class="solution-textarea"></textarea>
+    </div>
+
+    <div style="text-align: right;">
+      <button style="padding: 0.5rem 1rem; background: #0ea5e9; color: white; border: none; border-radius: 4px; cursor: pointer;">
+        Cerrar
+      </button>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %} 
+
+{% block customJS %}
+<script src="{{ url_for('static', filename ='assets/customJS/file.js') }}"></script>
+<script>
+    // Asegurarse de que el DOM esté completamente cargado
+document.addEventListener('DOMContentLoaded', function() {
+    // Seleccionar todos los botones con la clase view-button
+    const viewButtons = document.querySelectorAll('.view-button');
+    
+    // Agregar el evento click a cada botón
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            console.log('Botón presionado');
+            openModal();
+        });
+    });
+});
+
+// Funciones del modal
+function openModal() {
+    const modal = document.getElementById('modalOverlay');
+    console.log('Modal element:', modal); // Para debug
+    if (modal) {
+        modal.style.display = 'block';
+        console.log('Modal should be visible now'); // Para debug
+    } else {
+        console.error('Modal not found');
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById('modalOverlay');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+function switchTab(tab) {
+    // Desactivar todas las pestañas y contenidos
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+    // Activar la pestaña y contenido seleccionados
+    if (tab === 'detalle') {
+        document.querySelector('.tab:nth-child(1)').classList.add('active');
+        document.getElementById('detalleContent').classList.add('active');
+    } else {
+        document.querySelector('.tab:nth-child(2)').classList.add('active');
+        document.getElementById('cierreContent').classList.add('active');
+    }
+}
+
+// Cerrar el modal al hacer clic fuera de él
+window.onclick = function(event) {
+    const modal = document.getElementById('modalOverlay');
+    if (event.target === modal) {
+        closeModal();
+    }
+}
+</script>
+{% endblock %}

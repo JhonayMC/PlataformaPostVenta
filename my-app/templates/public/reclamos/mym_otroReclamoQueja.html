@@ -8,51 +8,12 @@
   href="{{ url_for('static', filename ='assets/css/file.css') }}" />
   <link rel="stylesheet" href="{{ url_for('static', filename ='assets/css/file.css') }}" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-  <style>
-  .gradient-header {
-    /*background: linear-gradient(to right, #002260, #6EC1E4);*/
-    background-color: #ffffff;
-    height: 15vh; 
-    border-bottom: 1px solid #eaeaea;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-</style>
   {% endblock %}
-
-
 
 <!--Inicio del block-->
 {% block body %}
 <!-- Header actualizado -->
-<div class="gradient-header w-full flex items-center px-8">
-
-    <!-- Contenedor del texto -->
-    <div class="flex flex-col items-start">
-        <h1 class="text-2xl font-bold" style="color: #002260;">ATENCIÓN DE QUEJAS Y RECLAMOS</h1>
-        <p class="text-sl text-black" style="color: #38bdf8 !important;">POSTVENTA</p>
-    </div>
-    
-    <div class="flex items-center ml-auto gap-4">
-        <!-- Icono de notificaciones -->
-        <div class="relative">
-            <i class="fas fa-bell text-xl text-blue-900 hover:text-gray-900 cursor-pointer"></i>
-            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">1</span>
-        </div>
-        
-        <!-- Información del usuario -->
-        <div class="flex items-center gap-2">
-            <span style="color: #002260;">User MyM</span>
-            <div class="h-8 w-8 bg-gray-200 rounded-full flex items-center justify-center">
-                <i class="fas fa-user text-gray-600"></i>
-            </div>
-        </div>
-
-        <!-- Logo -->
-        <img src="{{ url_for('static', filename='assets/img/logoMyM.png') }}" 
-             alt="M&M Logo" 
-             style="width: 20vh; height: 20vh; object-fit: contain;">
-    </div>
-</div>
+{% include 'public/includes/header_mym.html' %}
 
 <div class="w-full min-h-screen bg-white  rounded-lg shadow-lg">
 

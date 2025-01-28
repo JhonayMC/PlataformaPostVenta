@@ -242,3 +242,12 @@ def mym_seguimiento():
     else:
         flash('primero debes iniciar sesión.', 'error')
         return redirect(url_for('loginUserMyM'))
+
+#Para que me redirija a mym_dashboard.html
+@app.route('/mym_dashboard', methods=['GET'])
+def mym_dashboard():
+    if 'loggedin' in session:
+        return render_template('public/reclamos/mym_dashboard.html')
+    else:
+        flash('primero debes iniciar sesión.', 'error')
+        return redirect(url_for('loginUserMyM'))
