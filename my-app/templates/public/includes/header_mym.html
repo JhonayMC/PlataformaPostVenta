@@ -1,21 +1,63 @@
 <style>
     .gradient-header {
-    /*background: linear-gradient(to right, #002260, #6EC1E4);*/
-    background-color: #ffffff;
-    height: 15vh; 
-    border-bottom: 1px solid #eaeaea;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        background-color: #ffffff;
+        height: 15vh;
+        border-bottom: 1px solid #eaeaea;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        padding: 0 1rem; /* Espaciado horizontal */
+    }
+
+    .header-text {
+        flex: 1; /* Ocupa el espacio disponible */
+    }
+
+    .header-icons {
+        display: flex;
+        align-items: center;
+        gap: 1rem; /* Espacio entre íconos */
+    }
+
+    .header-logo {
+        width: 20vh;
+        height: 20vh;
+        object-fit: contain;
+    }
+
+    /* Media queries para pantallas pequeñas */
+    @media (max-width: 768px) {
+        .gradient-header {
+            height: auto;
+            padding: 10px;
+            justify-content: space-between; /* Espacio entre elementos */
+        }
+
+        .header-text {
+            display: none; /* Oculta el título y subtítulo en pantallas pequeñas */
+        }
+
+        .header-logo {
+            width: 15vh; /* Tamaño reducido para móviles */
+            height: 15vh;
+        }
+
+        .notification-badge {
+            top: -1rem;
+            right: -1rem;
+        }
     }
 </style>
+
 <div class="gradient-header w-full flex items-center px-12">
 
     <!-- Contenedor del texto -->
-    <div class="flex flex-col items-start">
+    <div class="header-text flex flex-col items-start">
         <h1 class="text-2xl font-bold" style="color: #002260;">ATENCIÓN DE QUEJAS Y RECLAMOS</h1>
-        <p class="text-sl text-black" style="color: #38bdf8 !important;">POSTVENTA</p>
+        <p class="text-sl text-black" style="color: #38bdf8;">POSTVENTA</p>
     </div>
     
-    <div class="flex items-center ml-auto gap-4">
+    <div class="header-icons flex items-center ml-auto gap-4">
         <!-- Icono de notificaciones -->
         <div class="relative">
             <i class="fas fa-bell text-xl text-blue-900 hover:text-gray-900 cursor-pointer"></i>
@@ -33,6 +75,6 @@
         <!-- Logo -->
         <img src="{{ url_for('static', filename='assets/img/logoMyM.png') }}" 
              alt="M&M Logo" 
-             style="width: 20vh; height: 20vh; object-fit: contain;">
+             class="header-logo">
     </div>
 </div>

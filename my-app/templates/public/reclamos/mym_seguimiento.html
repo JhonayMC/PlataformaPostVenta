@@ -10,124 +10,527 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
   
   <style>
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
+    
+   /* Overlay */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  /*left: 20.25rem;*/
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: calc(20.25rem + ((100% - 20.25rem) / 2));
+  transform: translate(-50%, -50%);
+  background: white;
+  width: calc(100% - 20.25rem - 4rem);
+  max-width: 800px;
+  max-height: 100vh;
+  height: auto;
+  border-radius: 8px;
+  z-index: 1001;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Header y botón de cerrar */
+.modal-header {
+  background: #002260;
+  color: white !important;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px 8px 0 0;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  height: 2.5rem;
+  width: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: -0.5rem -0.5rem -0.5rem 0;
+}
+
+.close-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+/* Media queries actualizados */
+@media (max-width: 1024px) {
+  .modal-overlay {
+    left: 0;
+    width: 100%;
+  }
+  
+  .modal {
+    width: calc(100% - 2rem);
+    left: 50%;
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-overlay {
+    left: 0;
+    width: 100%;
+  }
+  
+  .modal {
+    width: 95%;
+    left: 50%;
+    max-height: 90vh;
+  }
+  
+  .content {
+    max-height: calc(90vh - 120px);
+    padding: 1rem;
+  }
+  
+  .close-button {
+    font-size: 1.25rem;
+    height: 2rem;
+    width: 2rem;
+  }
+  
+  .tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .tab {
+    padding: 0.75rem 1rem;
+    white-space: nowrap;
+  }
+}
+
+/* Contenido */
+.content {
+  padding: 1.5rem;
+  max-height: calc(95vh - 120px);
+  overflow-y: auto;
+}
+
+/* Resto de estilos se mantienen igual */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tab {
+  padding: 1rem 2rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.tab.active {
+  color: #0ea5e9;
+  border-bottom: 2px solid #0ea5e9;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.field-label {
+  width: 200px;
+  color: #666;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  border: 1px solid #e5e7eb;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+th {
+  background: #f9fafb;
+}
+
+.origin-select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.solution-textarea {
+  width: 100%;
+  height: 100px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 2px solid #38bdf8 !important; 
+  border-radius: 5px
+
+}
+.section-title {
+  font-weight: 600;
+  margin: 1.5rem 0 1rem;
+  color: #374151;
+}
+
+.table-container {
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.right-panel {
+  background: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #0ea5e9;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+.btn-secondary {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  color: #374151;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.pickup-section {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid #d1d5db;
+}
+
+.date-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  margin-top: 0.5rem;
+}
+
+.comments-textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  resize: vertical;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.btn-save {
+  background: #0ea5e9;
+  color: white;
+  padding: 0.5rem 2rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-save:hover {
+  background: #0284c7;
+}
+
+.file-upload-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.file-input {
+  flex: 1;
+}
+
+.upload-btn {
+  background: #0ea5e9;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .right-panel {
+    margin: 1rem -1rem;
+    border-radius: 0;
+  }
+  
+  .file-upload-container {
+    flex-direction: column;
+  }
+  
+  .upload-btn {
+    width: 100%;
+  }
+}
+.content-wrapper {
+  display: flex;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.right-sidebar {
+  width: 300px;
+  padding: 1rem;
+  background: #f9fafb;
+  border-left: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.status-bar {
+  background: #f0f9ff;
+  padding: 0.5rem 1rem;
+  color: #0284c7;
+  margin-bottom: 1rem;
+}
+
+.field {
+  display: flex;
+  margin-bottom: 0.5rem;
+  align-items: baseline;
+}
+
+.field-label {
+  width: 160px;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.field-value {
+  color: #111;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.btn-primary {
+  background: #0ea5e9;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.comments-section {
+  margin-top: 1rem;
+}
+
+.comments-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+.comments-history {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.comment {
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.comment-header {
+  color: #666;
+  margin-bottom: 0.25rem;
+}
+
+.btn-save {
+  background: #0ea5e9;
+  color: white;
+  padding: 0.5rem 2rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-weight: 500;
+  margin-top: auto;
+}
+
+  @media (max-width: 1024px) {
+    .content-wrapper {
+      flex-direction: column;
+    }
+
+    .right-sidebar {
       width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 1000;
+      border-left: none;
+      border-top: 1px solid #e5e7eb;
     }
+  }
 
-    .modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      width: 90%;
-      max-width: 1000px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      z-index: 1001;
-    }
+  /* Responsividad para archivos adjuntos */
+.file-upload-container {
+  display: flex;
+  flex-direction: row; /* En pantallas grandes, mantiene el layout en fila */
+  gap: 1rem;
+  align-items: center;
+}
 
-    .modal-header {
-      background: #0ea5e9;
-      color: white;
-      padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-radius: 8px 8px 0 0;
-    }
+.file-input {
+  flex: 1;
+}
 
-    .close-button {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
+@media (max-width: 768px) {
+  .file-upload-container {
+    flex-direction: column; /* En pantallas más pequeñas, cambia a columna */
+    align-items: stretch;
+  }
+}
+/* Responsividad para el input de fecha */
+.pickup-section .field {
+  display: flex;
+  flex-direction: column; /* En pantallas pequeñas, muestra el input y la etiqueta uno debajo del otro */
+}
 
-    .tabs {
-      display: flex;
-      border-bottom: 1px solid #e5e7eb;
-    }
+.pickup-section .field-label {
+  width: 100%; /* El label ocupa el 100% en pantallas pequeñas */
+}
 
-    .tab {
-      padding: 1rem 2rem;
-      border: none;
-      background: none;
-      cursor: pointer;
-    }
+.date-input {
+  width: 100%; /* El input de fecha ocupa todo el espacio disponible */
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
 
-    .tab.active {
-      color: #0ea5e9;
-      border-bottom: 2px solid #0ea5e9;
-    }
+@media (max-width: 768px) {
+  .pickup-section {
+    padding: 1rem;
+  }
+}
 
-    .content {
-      padding: 1.5rem;
-    }
 
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-
-    .field {
-      display: flex;
-      margin-bottom: 0.5rem;
-    }
-
-    .field-label {
-      width: 200px;
-      color: #666;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-
-    th, td {
-      border: 1px solid #e5e7eb;
-      padding: 0.5rem;
-      text-align: left;
-    }
-
-    th {
-      background: #f9fafb;
-    }
-
-    .origin-select {
-      width: 100%;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .solution-textarea {
-      width: 100%;
-      height: 100px;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-    }
   </style>
   
   {% endblock %}
+
+  
 
 <!--Inicio del block-->
 {% block body %}
@@ -294,138 +697,231 @@
                 </div>
             </div>
         </div>
-
-        <!--VENTANA DE ALERTA-->
-        <!-- Modal -->
-    
-  </div>
-
-    <footer class="text-center py-3 text-gray-700" style="font-size: 1.1rem; padding-top: 1rem;">
-        © 2025 M&M. Todos los derechos reservados.
-    </footer>
-    
+        <footer class="text-center py-3 text-gray-700" style="font-size: 1.1rem; padding-top: 1rem;">
+          © 2025 M&M. Todos los derechos reservados.
+      </footer>
+      </div>
 </div>
 
 <div id="modalOverlay" class="modal-overlay">
   <div class="modal">
-  <div class="modal-header">
-      <h2>080673 - PARTS AND SERVICE ANADI E.I.R.L.</h2>
+    <div class="modal-header">
+      <h2 style="color: white !important;">080673 - PARTS AND SERVICE ANADI E.I.R.L.</h2>
       <button class="close-button" onclick="closeModal()">×</button>
-  </div>
-
-<div class="tabs">
-  <button class="tab active" onclick="switchTab('detalle')">Detalle</button>
-  <button class="tab" onclick="switchTab('cierre')">Cierre</button>
-</div>
-
-<div class="content">
-  <!-- Contenido de Detalle -->
-  <div id="detalleContent" class="tab-content active">
-    <div class="grid">
-      <div>
-        <div class="field">
-          <span class="field-label">Tipo de registro:</span>
-          <span>Reclamo</span>
-        </div>
-        <div class="field">
-          <span class="field-label">Motivo:</span>
-          <span>Repuesto incompleto</span>
-        </div>
-        <div class="field">
-          <span class="field-label">Cliente:</span>
-          <span>080673 - PARTS AND SERVICE ANADI E.I.R.L.</span>
-        </div>
-        <div class="field">
-          <span class="field-label">Persona que registro:</span>
-          <span>Ernesto Ramón Quintanil</span>
-        </div>
-        <div class="field">
-          <span class="field-label">Teléfono:</span>
-          <span>966114304</span>
-        </div>
-      </div>
-      <div>
-        <div class="field">
-          <span class="field-label">N° Registro:</span>
-          <span>R00002</span>
-        </div>
-        <div class="field">
-          <span class="field-label">Fecha de registro:</span>
-          <span>17/03/2024</span>
-        </div>
-        <div class="field">
-          <span class="field-label">DNI:</span>
-          <span>45456985</span>
-        </div>
-        <div class="field">
-          <span class="field-label">E-mail:</span>
-          <span>Eramon@mym.com.pe</span>
-        </div>
-      </div>
-  </div>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Lin</th>
-          <th>Org</th>
-          <th>Marc</th>
-          <th>Descrip fábrica</th>
-          <th>Artículo</th>
-          <th>Descripción</th>
-          <th>Cant.</th>
-          <th>Unid. Reclamo</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>001</td>
-          <td>01</td>
-          <td>02</td>
-          <td>584</td>
-          <td>ROTA</td>
-          <td>20712368</td>
-          <td>BARRA ESTAB DELANT 15MM BA30R</td>
-          <td>20</td>
-          <td>2</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div style="margin-top: 1rem;">
-      <h3>Detalles del reclamo:</h3>
-      <p>El cliente indica que uno de los sensores que ha solicitado le faltan 2 accesorios.</p>
-    </div>
-  </div>
-
-  <!-- Contenido de Cierre -->
-  <div id="cierreContent" class="tab-content">
-    <div>
-      <label>Origen del reclamo:</label>
-      <select class="origin-select">
-        <option value="">Seleccionar origen</option>
-        <option value="cliente">Error de cliente</option>
-        <option value="vendedor">Error de vendedor</option>
-        <option value="almacen">Error de almacén</option>
-        <option value="despacho">Error de despacho y distrib.</option>
-        <option value="sistema">Error de sistema</option>
-        <option value="agencia">Inconvenientes con la agencia</option>
-        <option value="almacenamiento">Tiempo de almacenamiento</option>
-      </select>
     </div>
 
-    <div>
-      <label>Detalle de solución:</label>
-      <textarea class="solution-textarea"></textarea>
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('detalle')">Detalle</button>
+      <button class="tab" onclick="switchTab('cierre')">Cierre</button>
     </div>
 
-    <div style="text-align: right;">
-      <button style="padding: 0.5rem 1rem; background: #0ea5e9; color: white; border: none; border-radius: 4px; cursor: pointer;">
-        Cerrar
-      </button>
+    <div class="content">
+      <div id="detalleContent" class="tab-content active">
+        <!-- Contenido de Detalle -->
+        <div class="status-bar">
+          <span>Estado: Generado</span>
+        </div>
+        
+        <!-- Main content wrapper with right sidebar -->
+        <div class="content-wrapper">
+          <!-- Left content -->
+          <div class="main-content">
+            <div class="grid">
+              <div>
+                <div class="field">
+                  <span class="field-label">Tipo de registro:</span>
+                  <span class="field-value">Reclamo</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Motivo:</span>
+                  <span class="field-value">Repuesto incompleto</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Cliente:</span>
+                  <span class="field-value">080673 - PARTS AND SERVICE ANADI E.I.R.L.</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Clasificación venta:</span>
+                  <span class="field-value">xxxxxx</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Potencial venta:</span>
+                  <span class="field-value">xxxxxx</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Persona que registró:</span>
+                  <span class="field-value">Ernesto Ramón Quintanil</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Teléfono:</span>
+                  <span class="field-value">966114304</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">N° Factura:</span>
+                  <span class="field-value">F011 - 00050872</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">N° interno:</span>
+                  <span class="field-value">0908136</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">N° Guía de remisión:</span>
+                  <span class="field-value">GR001-123456</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <span class="field-label">N° Registro:</span>
+                  <span class="field-value">R00002</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Fecha de registro:</span>
+                  <span class="field-value">17/03/2024</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">DNI:</span>
+                  <span class="field-value">45456985</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">E-mail:</span>
+                  <span class="field-value">Eramon@mym.com.pe</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Fecha venta:</span>
+                  <span class="field-value">16/03/2024</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Provincia:</span>
+                  <span class="field-value">Lima</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Sucursal:</span>
+                  <span class="field-value">01 - Arriola 17</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Almacén:</span>
+                  <span class="field-value">01 - Arriola 17</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Vendedor:</span>
+                  <span class="field-value">000010 - Oficina Principal</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Transportista:</span>
+                  <span class="field-value">M&M Repuestos y Servicios</span>
+                </div>
+              </div>
+            </div>
+  
+            <div class="section-title">Producto en reclamo:</div>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Lin</th>
+                    <th>Org</th>
+                    <th>Marc</th>
+                    <th>Descrip fábrica</th>
+                    <th>Artículo</th>
+                    <th>Descripción</th>
+                    <th>Cant.</th>
+                    <th>Unid. Reclamo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>001</td>
+                    <td>01</td>
+                    <td>02</td>
+                    <td>584</td>
+                    <td>ROTA</td>
+                    <td>20712368</td>
+                    <td>BARRA ESTAB DELANT 15MM BA30R</td>
+                    <td>20</td>
+                    <td>2</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+  
+            <div class="section mt-4">
+              <h3>Detalles del reclamo:</h3>
+              <p>El cliente indica que uno de los sensores que ha solicitado le faltan 2 accesorios.</p>
+            </div>
+  
+            <div class="section mt-4">
+              <h3>Archivos Adjuntos:</h3>
+              <div class="file-upload-container mt-3">
+                <input type="file" id="fileUpload" multiple class="file-input" />
+              </div>
+            </div>
+          </div>
+  
+          <!-- Right sidebar -->
+          <div class="right-sidebar">
+            <div class="toggle-container">
+              <label class="switch">
+                <input type="checkbox" />
+                <span class="slider"></span>
+              </label>
+              <span>Productos en tienda</span>
+            </div>
+  
+            <button class="btn-secondary">Formato de registro</button>
+  
+            <div class="pickup-section">
+              <div>Recoger productos en agencia</div>
+              <button class="btn-primary">Cargar Guía</button>
+              <div class="field">
+                <span class="field-label">Fecha de llegada:</span>
+                <input type="date" class="date-input" />
+              </div>
+            </div>
+  
+            <div class="comments-section">
+              <h3>Comentarios:</h3>
+              <textarea class="comments-textarea" placeholder="Nuevo comentario"></textarea>
+            </div>
+  
+            <div class="comments-history">
+              <div class="comment">
+                <div class="comment-header">GFlores - 17/03/2024, 6:15p.m.</div>
+                <div class="comment-text">Cliente envió repuestos a M&M en arriola 17</div>
+              </div>
+            </div>
+  
+            <button class="btn-save">Guardar</button>
+          </div>
+        </div>
+      </div> 
     </div>
-  </div>
+      
+
+      <!-- Contenido de Cierre -->
+      <div id="cierreContent" class="tab-content" style="display: none;">
+        <label>Origen del reclamo:</label>
+        <select class="origin-select">
+          <option value="">Seleccionar origen</option>
+          <option value="cliente">Error de cliente</option>
+          <option value="vendedor">Error de vendedor</option>
+          <option value="almacen">Error de almacén</option>
+          <option value="despacho">Error de despacho y distrib.</option>
+          <option value="sistema">Error de sistema</option>
+          <option value="agencia">Inconvenientes con la agencia</option>
+          <option value="almacenamiento">Tiempo de almacenamiento</option>
+        </select>
+        <div>
+          <label>Detalle de solución:</label>
+          <textarea class="solution-textarea" style="border: #002260;"></textarea>
+        </div>
+    
+        <div style="text-align: right;">
+          <button style="padding: 0.5rem 1rem; background: #0ea5e9; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            Cerrar
+          </button>
+        </div>
+      </div> 
 </div>
 
 
@@ -470,17 +966,18 @@ function closeModal() {
 function switchTab(tab) {
     // Desactivar todas las pestañas y contenidos
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
 
-    // Activar la pestaña y contenido seleccionados
+    // Activar la pestaña y el contenido correspondiente
     if (tab === 'detalle') {
         document.querySelector('.tab:nth-child(1)').classList.add('active');
-        document.getElementById('detalleContent').classList.add('active');
+        document.getElementById('detalleContent').style.display = 'block';
     } else {
         document.querySelector('.tab:nth-child(2)').classList.add('active');
-        document.getElementById('cierreContent').classList.add('active');
+        document.getElementById('cierreContent').style.display = 'block';
     }
 }
+
 
 // Cerrar el modal al hacer clic fuera de él
 window.onclick = function(event) {
