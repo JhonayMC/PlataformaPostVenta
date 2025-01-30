@@ -216,9 +216,9 @@ def dataLoginSesion():
     return inforLogin
 
 #Para guardar a los usuarios MyM
-def recibeInsertRegisterUserMyM(nombre_completo, usuario, password, compania):
+def recibeInsertRegisterUserMyM(nombre_completo, usuario, password, compania, rol):
     # Validar los datos antes de procesar
-    respuestaValidar = validarDataRegisterLoginMyM(nombre_completo, usuario, password, compania)
+    respuestaValidar = validarDataRegisterLoginMyM(nombre_completo, usuario, password, compania, rol)
 
     if respuestaValidar:
         nueva_password = generate_password_hash(password, method='scrypt')  # Encriptar la contraseña
@@ -228,8 +228,8 @@ def recibeInsertRegisterUserMyM(nombre_completo, usuario, password, compania):
             if connection:
                 with connection.cursor() as mycursor:
                     # Consulta SQL para insertar los datos en la tabla UsersMyM
-                    sql = "INSERT INTO UsersMyM (nombre_completo, usuario, password, compania) VALUES (?, ?, ?, ?)"
-                    valores = (nombre_completo, usuario, nueva_password, compania)
+                    sql = "INSERT INTO UsersMyM (nombre_completo, usuario, password, compania, rol) VALUES (?, ?, ?, ?, ?)"
+                    valores = (nombre_completo, usuario, nueva_password, compania, rol)
                     mycursor.execute(sql, valores)
                     connection.commit()
                     resultado_insert = mycursor.rowcount  # Verificar cuántas filas fueron afectadas
@@ -242,7 +242,7 @@ def recibeInsertRegisterUserMyM(nombre_completo, usuario, password, compania):
     else:
         return 0  # Retorna 0 si la validación falla
 
-def validarDataRegisterLoginMyM(nombre_completo, usuario, password, compania):
+def validarDataRegisterLoginMyM(nombre_completo, usuario, password, compania, rol):
     try:
         connection = connectionBD()
         if connection:
@@ -254,7 +254,7 @@ def validarDataRegisterLoginMyM(nombre_completo, usuario, password, compania):
                 if userBD is not None:
                     flash('El registro no fue procesado, ya existe la cuenta', 'error')
                     return False
-                elif not nombre_completo or not usuario or not password or not compania:
+                elif not nombre_completo or not usuario or not password or not compania or not rol:
                     flash('Por favor llene los campos del formulario.', 'error')
                     return False
                 else:

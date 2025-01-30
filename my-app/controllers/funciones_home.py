@@ -14,6 +14,7 @@ import openpyxl  # Para generar el excel
 from flask import send_file
 import socket # biblioteca o modulo para conectar a impresora
 from flask import Flask, session, request, redirect, url_for, render_template, flash
+from functools import wraps
 
 # def actualizar_estado_impresion(id_impresora,correlativo_actual, nuevo_correlativo):
 #     try:
@@ -564,6 +565,21 @@ def detener_impresion(id_impresion):
         flash(f'Se detuvo la impresión con id {id_impresion}', 'info')
     else:
         flash(f'No se encontró la impresión con id {id_impresion}', 'error')
+
+#Funcion para el manejo de roles en el inicio de sesion
+#de usuarios MyM
+def role_required(roles):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if 'rol' not in session:
+                return redirect(url_for('login-mym'))
+            if session['rol'] not in roles:
+                return redirect(url_for('unauthorized'))
+            return f(*args, **kwargs)
+        return decorated_function
+    return decorator
+
 
 
 # Estructura para almacenar información de hilos

@@ -96,83 +96,74 @@
       </a>
     </div>
   
-    <div class="menu-inner-shadow"></div>
+
+
+  <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-5">
-      <li
-        class="menu-item {% if request.path == '/mym_reclamo' %} active {% endif %}">
-        <a href="{{ url_for('mym_reclamo') }}" class="menu-link">
+      {% if session['rol'] == 'asistente de post venta' %}
+        <li class="menu-item {% if request.path == '/mym_reclamo' %} active {% endif %}">
+          <a href="{{ url_for('mym_reclamo') }}" class="menu-link">
             <i class="menu-icon bi bi-tools"></i>
             <div data-i18n="Basic">Generar reclamo por falla de producto</div>
           </a>
-      </li>
-      <li
-        class="menu-item {% if request.path == '/mym_otroReclamo' %} active {% endif %}">
-        <a href="{{ url_for('mym_otroReclamo') }}" class="menu-link">
-          <i class="menu-icon bi bi-chat-dots"></i>
-          <div data-i18n="Basic">Generar otro tipo de reclamo o queja</div>
-        </a>
-      </li>
-      <li class="menu-item {% if request.path == '/mym_seguimiento' %} active {% endif %}">
-        <a href="{{ url_for('mym_seguimiento') }}" class="menu-link">
+        </li>
+        <li class="menu-item {% if request.path == '/mym_otroReclamo' %} active {% endif %}">
+          <a href="{{ url_for('mym_otroReclamo') }}" class="menu-link">
+            <i class="menu-icon bi bi-chat-dots"></i>
+            <div data-i18n="Basic">Generar otro tipo de reclamo o queja</div>
+          </a>
+        </li>
+        <li class="menu-item {% if request.path == '/mym_seguimiento' %} active {% endif %}">
+          <a href="{{ url_for('mym_seguimiento') }}" class="menu-link">
             <i class="menu-icon bi bi-clock-history"></i>
             <div data-i18n="Basic">Seguimiento</div>
-        </a>
-    </li>
-    <li class="menu-item {% if request.path == '/mym_dashboard' %} active {% endif %}">
-        <a href="{{ url_for('mym_dashboard') }}" class="menu-link">
+          </a>
+        </li>
+        <li class="menu-item {% if request.path == '/mym_dashboard' %} active {% endif %}">
+          <a href="{{ url_for('mym_dashboard') }}" class="menu-link">
             <i class="menu-icon bi bi-bar-chart-fill"></i>
             <div data-i18n="Basic">Dashboard</div>
-        </a>
-    </li>
-      <!--
-      <li
-        class="menu-item {% if request.path == '/registrar-impresion' %} active {% endif %}">
-        <a href="{{ url_for('viewFormImpresion') }}" class="menu-link">
-          <i class="menu-icon bi bi-printer-fill"></i>
-          <div data-i18n="Basic">Registrar Impresion</div>
-        </a>
-      </li>
-      <li
-        class="menu-item {% if request.path == '/lista-de-cola-impresiones' %} active{% endif %}">
-        <a href="/lista-de-cola-impresiones" class="menu-link">
-          <i class="menu-icon bi bi-list-task"></i>
-          <div data-i18n="Boxicons">Cola de Impresiones</div>
-        </a>
-      </li>
-      <li
-      class="menu-item {% if request.path == '/lista-de-correlativos' %} active {% endif %}">
-      <a href="/lista-de-correlativos" class="menu-link">
-        <i class="menu-icon bi bi-list-ol"></i>
-        <div data-i18n="Tables">Lista de Correlativos</div>
-      </a>
-     </li>-->
-     <li class="menu-item {% if request.path == '/descargar-informe-empleados' %} active {% endif %}">
-        <a href="/descargar-informe-empleados" class="menu-link">
+          </a>
+        </li>
+        <li class="menu-item {% if request.path == '/descargar-informe-empleados' %} active {% endif %}">
+          <a href="/descargar-informe-empleados" class="menu-link">
             <i class="menu-icon bi bi-file-earmark-spreadsheet-fill"></i>
             <div data-i18n="Tables">Reportes</div>
-        </a>
-    </li>
-    <li class="menu-item {% if request.path == '/consultarEstado' %} active {% endif %}">
-        <a href="{{ url_for('consultarEstado') }}" class="menu-link">
+          </a>
+        </li>
+      {% elif session['rol'] == 'asesor tecnico' %}
+        <li class="menu-item {% if request.path == '/mym_seguimiento' %} active {% endif %}">
+          <a href="{{ url_for('mym_seguimiento') }}" class="menu-link">
+            <i class="menu-icon bi bi-clock-history"></i>
+            <div data-i18n="Basic">Seguimiento</div>
+          </a>
+        </li>
+        <li class="menu-item {% if request.path == '/mym_dashboard' %} active {% endif %}">
+          <a href="{{ url_for('mym_dashboard') }}" class="menu-link">
+            <i class="menu-icon bi bi-bar-chart-fill"></i>
+            <div data-i18n="Basic">Dashboard</div>
+          </a>
+        </li>
+        <li class="menu-item {% if request.path == '/mym_dashboard' %} active {% endif %}">
+          <a href="{{ url_for('mym_dashboard') }}" class="menu-link">
+            <i class="menu-icon bi bi-bar-chart-fill"></i>
+            <div data-i18n="Basic">Probando funcionalidades</div>
+          </a>
+        </li>
+        <li class="menu-item {% if request.path == '/descargar-informe-empleados' %} active {% endif %}">
+          <a href="/descargar-informe-empleados" class="menu-link">
+            <i class="menu-icon bi bi-file-earmark-spreadsheet-fill"></i>
+            <div data-i18n="Tables">Reportes</div>
+          </a>
+        </li>
+        <li class="menu-item {% if request.path == '/consultarEstado' %} active {% endif %}">
+          <a href="{{ url_for('consultarEstado') }}" class="menu-link">
             <i class="menu-icon bi bi-gear-fill"></i>
             <div data-i18n="Basic">Mantenimiento</div>
-        </a>
-    </li>
-      <li
-        class="menu-item {% if request.path == '/lista-de-usuarios' %} active {% endif %}">
-        <a href="/lista-de-usuarios" class="menu-link">
-          <i class="menu-icon bi bi-person-lines-fill"></i>
-          <div data-i18n="Tables">Lista de Usuarios</div>
-        </a>
-      </li>
-      <!--
-      <li
-        class="menu-item {% if request.path == '/mi-perfil' %} active {% endif %}">
-        <a href="/mi-perfil" class="menu-link">
-          <i class="menu-icon bi bi-person-fill-gear"></i>
-          <div data-i18n="Tables">Mi Perfil</div>
-        </a>
-      </li> -->
+          </a>
+        </li>
+      {% endif %}
+      <!-- Botón de salir común para todos -->
       <li class="menu-item">
         <a href="{{ url_for('cerraSesion') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>

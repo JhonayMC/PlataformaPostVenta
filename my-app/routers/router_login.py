@@ -137,47 +137,70 @@ def loginCliente():
 #Login Usuario MyM
 @app.route('/login-mym', methods=['GET', 'POST'])
 def loginUserMyM():
+    # Si hay una sesión activa, limpiarla y redirigir al menu
     if 'loggedin' in session:
+        session.clear()
         return redirect(url_for('menuMyM'))
-    else:
-        if request.method == 'POST' and 'usuario' in request.form and 'password' in request.form and 'compania' in request.form:
-            usuario = str(request.form['usuario'])
-            password = str(request.form['password'])
-            compania = str(request.form['compania'])
-            compania_map = {
-                '1': '30 ANADI', 
-                '2': '10 M&M REPUESTOS Y SERVICIOS S.A.'
-            }
-            mapped_company = compania_map[compania]
+    
+    if request.method == 'POST' and 'usuario' in request.form and 'password' in request.form and 'compania' in request.form:
+        usuario = str(request.form['usuario'])
+        password = str(request.form['password'])
+        compania = str(request.form['compania'])
+        
+        compania_map = {
+            '1': '30 ANADI',
+            '2': '10 M&M REPUESTOS Y SERVICIOS S.A.'
+        }
+        mapped_company = compania_map[compania]
+        
+        try:
             conexion_MySQLdb = connectionBD()
-            cursor = conexion_MySQLdb.cursor()
-            cursor.execute(""" SELECT * FROM UsersMyM 
-                WHERE usuario = ? AND compania = ?
-            """, (usuario, mapped_company))
-            account = cursor.fetchone()
-            if account:
-                columns = [column[0] for column in cursor.description]
-                account_dict = dict(zip(columns, account))
+            if conexion_MySQLdb:
+                with conexion_MySQLdb.cursor() as cursor:
+                    # Incluir el rol en la consulta
+                    cursor.execute("""
+                        SELECT id, usuario, password, compania, nombre_completo, rol 
+                        FROM UsersMyM
+                        WHERE usuario = ? AND compania = ?
+                    """, (usuario, mapped_company))
+                    
+                    account = cursor.fetchone()
+                    
+                    if account:
+                        columns = [column[0] for column in cursor.description]
+                        account_dict = dict(zip(columns, account))
+                        
+                        if check_password_hash(account_dict['password'], password):
+                            # Limpiar cualquier sesión existente
+                            session.clear()
+                            
+                            # Establecer datos de sesión
+                            session['loggedin'] = True
+                            session['id'] = account_dict['id']
+                            session['usuario'] = account_dict['usuario']
+                            session['compania'] = account_dict['compania']
+                            session['rol'] = account_dict['rol']
+                            session['nombre_completo'] = account_dict['nombre_completo']
+                            
+                            # Hacer la sesión permanente pero con tiempo de expiración
+                            session.permanent = True
+                            
+                            flash('La sesión fue iniciada correctamente.', 'success')
+                            return redirect(url_for('menuMyM'))
+                        else:
+                            flash('Contraseña incorrecta, por favor revise.', 'error')
+                    else:
+                        flash('El usuario no existe o la compañía es incorrecta.', 'error')
                 
-                # Use the correct column name for password
-                # Assuming the password column is actually named 'password' or something similar
-                if check_password_hash(account_dict['password'], password):
-                    session['loggedin'] = True
-                    session['id'] = account_dict['id']
-                    session['usuario'] = account_dict['usuario']
-                    session['compania'] = account_dict['compania']
-                    flash('la sesión fue correcta.', 'success')
-                    return redirect(url_for('menuMyM'))
-                else:
-                    flash('datos incorrectos por favor revise.', 'error')
-                    return render_template(f'{PATH_URL_LOGIN}/auth_login_usuario.html')
+                conexion_MySQLdb.close()
             else:
-                flash('el usuario no existe, por favor verifique.', 'error')
-                return render_template(f'{PATH_URL_LOGIN}/auth_login_usuario.html')
-        else:
-            flash('primero debes iniciar sesión.', 'error')
-            return render_template(f'{PATH_URL_LOGIN}/auth_login_usuario.html')
-
+                flash('Error de conexión con la base de datos.', 'error')
+                
+        except Exception as e:
+            flash('Error al procesar la solicitud.', 'error')
+            print(f"Error en login: {e}")
+            
+    return render_template(f'{PATH_URL_LOGIN}/auth_login_usuario.html')
 
 # Registro de Usuario MyM . /register-mym
 @app.route('/register-mym', methods=['GET'])
@@ -187,15 +210,16 @@ def register_mym():
 #Para manejar el registro de un usuario MyM DE auth_register_usuario.html
 @app.route('/saved-register-mym', methods=['POST'])
 def saved_register_mym():
-    if request.method == 'POST' and 'nombre_completo_mym' in request.form and 'usuario_mym' in request.form and 'password_mym' in request.form and 'compania_mym' in request.form:
+    if request.method == 'POST' and 'nombre_completo_mym' in request.form and 'usuario_mym' in request.form and 'password_mym' in request.form and 'compania_mym' in request.form and 'rol_mym' in request.form:
         nombre_completo = request.form['nombre_completo_mym']
         usuario = request.form['usuario_mym']
         password = request.form['password_mym']
         compania = request.form['compania_mym']
+        rol = request.form['rol_mym']
 
         # Llamada a la función de inserción
         resultData = recibeInsertRegisterUserMyM(
-            nombre_completo, usuario, password, compania
+            nombre_completo, usuario, password, compania, rol
         )
 
         if resultData:  # Si la inserción fue exitosa
@@ -224,6 +248,25 @@ def cerraSesion():
         else:
             flash('recuerde debe iniciar sesión.', 'error')
             return render_template(f'{PATH_URL_LOGIN}/base_login.html')
+
+@app.route('/closed-session',  methods=['GET'])
+def cierraSesion():
+    if request.method == 'GET':
+        # Limpiar todas las variables de sesión
+        session.clear()
+        
+        # Asegurarse que la sesión sea invalidada
+        session.pop('_flashes', None)
+        
+        # Forzar que la cookie de sesión expire
+        response = redirect(url_for('inicio'))
+        response.set_cookie('session', '', expires=0)
+        
+        flash('Tu sesión fue cerrada correctamente.', 'success')
+        return response
+    
+    return redirect(url_for('inicio'))
+
 
 #Redirigir al dashborad de mi pagina, mi menu principal
 @app.route('/dashboard')

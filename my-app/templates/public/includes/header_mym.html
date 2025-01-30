@@ -6,11 +6,12 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         display: flex;
         align-items: center;
-        padding: 0 1rem; /* Espaciado horizontal */
+        padding: 0  1rem; /* Espaciado horizontal */
     }
 
     .header-text {
-        flex: 1; /* Ocupa el espacio disponible */
+        flex: 0 1 auto; /* Cambiado de flex: 1 para mejor control del espacio */
+        padding-left: 1rem; /* Añadido padding específico para el texto */
     }
 
     .header-icons {
@@ -49,7 +50,7 @@
     }
 </style>
 
-<div class="gradient-header w-full flex items-center px-12">
+<div class="gradient-header w-full flex items-center justify-between">
 
     <!-- Contenedor del texto -->
     <div class="header-text flex flex-col items-start">

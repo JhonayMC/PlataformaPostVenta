@@ -90,6 +90,30 @@
               </div>
             </div>
 
+            <!--Campo Rol-->
+            <!-- Añadir esto dentro del form, justo después del campo compañía -->
+            <div class="mb-3">
+              <div class="input-group input-group-merge" style="display: flex; align-items: center; background: white; border-radius: 4px; border: 1px solid #e0e0e0;">
+                <span class="input-group-text" style="background: transparent; border: none; padding-left: 12px;">
+                  <i class="fas fa-user-tag" style="color: #002260;"></i>
+                </span>
+                <select 
+                  class="form-select"
+                  name="rol_mym"
+                  required
+                  style="border: none; flex-grow: 1; padding: 8px 12px; background: transparent; outline: none;">
+                  <option value="" disabled selected>-------------------- Rol --------------------</option>
+                  <option value="asistente de post venta">Asistente de Postventa</option>
+                  <option value="asesor tecnico">Asesor Técnico</option>
+                  <option value="jefe de post venta">Jefe de Postventa</option>
+                  <option value="jefe comercial">Jefe Comercial</option>
+                </select>
+                <span class="input-group-text" style="background: transparent; border: none;">
+                  <i class="fas fa-chevron-down" style="color: #696cff;"></i>
+                </span>
+              </div>
+            </div>
+
             <!-- Botón Submit -->
             <div class="mb-3">
               <button class="btn btn-primary w-100" type="submit">
